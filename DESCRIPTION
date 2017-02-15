@@ -1,11 +1,28 @@
 Package: ecocat
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
-Encoding: UTF-8
+Title: Couple ecoham output with Atlantis polygon structure.
+Version: 0.3.3.9000
+Authors@R: person("Alexander", "Keth", email = "alexander.keth@uni-hamburg.de", role = c("aut", "cre"))
+Description: Helper tools to convert ecoham output into tidy data format and couple with atlantis layout.
+URL: https://github.com/alketh/ecocat
+Depends:
+    R (>= 3.2.3)
+License: GPL
 LazyData: true
+RoxygenNote: 5.0.1
+Suggests:
+  testthat,
+  knitr,
+  rmarkdown
+Imports:
+  dplyr,
+  magrittr,
+  RNetCDF,
+  stringr,
+  lazyeval,
+  tidyr,
+  ggplot2,
+  purrr,
+  atlantistools
+VignetteBuilder: knitr
+Remotes: alketh/atlantistools
