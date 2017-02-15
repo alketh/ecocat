@@ -8,6 +8,9 @@ apt_packages:
 - libudunits2-dev
 - libnetcdf-dev
 
+r_binary_packages:
+- proj4
+
 r_github_packages:
   - jimhester/covr
 
