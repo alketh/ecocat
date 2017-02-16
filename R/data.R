@@ -1,0 +1,26 @@
+#' bgm_df
+#'
+#' bgm file converted to tidy dataframe.
+#'
+#' @format A data frame with 324 rows and 5 variables:
+#' \describe{
+#'   \item{\code{lat}}{double. Latitude}
+#'   \item{\code{long}}{double. Longitude}
+#'   \item{\code{inside_lat}}{double. Latitude of ("mid"-) point inside the polygon.}
+#'   \item{\code{inside_long}}{double. Longitude of ("mid"-) point inside the polygon.}
+#'   \item{\code{polygon}}{double. Polygonid.}
+#' }
+"bgm_df"
+
+
+#' nicemap_df
+#'
+#' nicemap converted to tidy dataframe.
+#'
+#' @format A data frame with 7216 rows and 3 variables:
+#' \describe{
+#'   \item{\code{id_x}}{integer. Horizontal position of the potential ECOHAM box.}
+#'   \item{\code{id_y}}{integer. Vertical position of the potential ECOHAM box.}
+#'   \item{\code{poly_code}}{character. Value of the box code.}
+#' }
+"nicemap_df"
