@@ -25,3 +25,17 @@
 #'   \item{\code{polygon}}{double. ATLANTIS polygon id.}
 #' }
 "nicemap_df"
+
+
+
+#' ecoham_layout
+#'
+#' mid points in latitude and longitude for each ecoham box.
+#'
+#' @format A data frame with 7216 rows and 3 variables:
+#' \describe{
+#'   \item{\code{longitude}}{double. longitude.}
+#'   \item{\code{latitude}}{double. latitude.}
+#'   \item{\code{ecoham_id}}{integer. ECOHAM box id.}
+#' }
+"ecoham_layout"

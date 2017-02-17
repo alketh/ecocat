@@ -1,6 +1,7 @@
 library("atlantistools")
 library("purrr")
 library("tibble")
+library("dplyr")
 
 bgm_df <- convert_bgm(bgm = "inst/extdata/NorthSea.bgm")
 
@@ -29,6 +30,14 @@ nicemap_df$poly_code[nicemap_df$id_x == 47 & nicemap_df$id_y == 42] == "J"
 nicemap_df$poly_code[nicemap_df$id_x == 70 & nicemap_df$id_y == 49] == "N"
 is.na(nicemap_df$poly_code[nicemap_df$id_x == 15 & nicemap_df$id_y == 72])
 
-devtools::use_data(bgm_df, nicemap_df, overwrite = TRUE)
+# Create dataframe with ECOHAM boxes
+nc_read <- RNetCDF::open.nc(con = system.file(package = "ecocat", "extdata/volume.nc"))
+ecoham_layout <- expand.grid(RNetCDF::var.get.nc(nc_read, variable = "longitude"),
+                             RNetCDF::var.get.nc(nc_read, variable = "latitude")) %>%
+  as_tibble() %>%
+  set_names(c("longitude", "latitude")) %>%
+  mutate(ecoham_id = 1:nrow(.))
+
+devtools::use_data(bgm_df, nicemap_df, ecoham_layout, overwrite = TRUE)
 
 rm(list = ls())
