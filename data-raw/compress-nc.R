@@ -7,7 +7,6 @@ nc_read <- RNetCDF::open.nc(nc)
 
 nc_inq <- RNetCDF::file.inq.nc(nc_read)
 nvars <- RNetCDF::file.inq.nc(nc_read)$nvars
-ndims <-
 
 nc_detail <- map(0:(nc_inq$nvars - 1), ~RNetCDF::var.inq.nc(.x, ncfile = nc_read))
 
