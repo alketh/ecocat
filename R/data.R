@@ -12,7 +12,6 @@
 #' }
 "bgm_df"
 
-
 #' nicemap_df
 #'
 #' nicemap converted to tidy dataframe.
@@ -22,5 +21,7 @@
 #'   \item{\code{id_x}}{integer. Horizontal position of the potential ECOHAM box.}
 #'   \item{\code{id_y}}{integer. Vertical position of the potential ECOHAM box.}
 #'   \item{\code{poly_code}}{character. Value of the box code.}
+#'   \item{\code{id}}{integer. ECOHAM box id.}
+#'   \item{\code{polygon}}{double. ATLANTIS polygon id.}
 #' }
 "nicemap_df"
