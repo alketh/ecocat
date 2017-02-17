@@ -21,3 +21,5 @@ nicemap_df$poly_code[nicemap_df$id_x == 70 & nicemap_df$id_y == 49] == "N"
 nicemap_df$poly_code[nicemap_df$id_x == 15 & nicemap_df$id_y == 72] == "0"
 
 devtools::use_data(bgm_df, nicemap_df, overwrite = TRUE)
+
+rm(list = ls())
