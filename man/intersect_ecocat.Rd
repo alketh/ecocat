@@ -10,7 +10,10 @@ intersect_ecocat(bgm_df, ecoham_layout)
 \item{bgm_df}{Dataframe generated with atlantistools::convert_bgm().}
 
 \item{ecoham_layout}{Dataframe with columns longitude, latidude (box mid points) and the ecoham_id for
-each box. See \link{create-example-dfs.R} for details.}
+each box. See create-example-dfs.R for details.}
+}
+\value{
+Dataframe
 }
 \description{
 Calculate overlap between ecoham boxes and atlantis polygons.
