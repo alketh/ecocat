@@ -2,4 +2,5 @@
 
 export("%>%")
 export(eco_to_tidy)
+export(intersect_ecocat)
 importFrom(magrittr,"%>%")
