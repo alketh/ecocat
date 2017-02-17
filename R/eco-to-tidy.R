@@ -38,7 +38,7 @@ eco_to_tidy <- function(nc) {
   c2 <- rep(rep(rep(vars_new[[2]], each = d[1]), times = d[3]), times = d[4])
   c3 <- rep(rep(vars_new[[3]], each = d[1] * d[2]), times = d[4])
   c4 <- rep(vars_new[[4]], each = d[1] * d[2] * d[3])
-  c6 <- rep(1:(d1[1] * d[2]), times = d[3] * d[4])
+  c6 <- rep(1:(d[1] * d[2]), times = d[3] * d[4])
 
   # Combine to tibble and remove missing values.
   ecodf <- tibble::tibble(c1, c2, c3, c4, c5 = as.vector(ar), c6) %>%
