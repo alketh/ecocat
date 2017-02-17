@@ -4,7 +4,7 @@
 \alias{eco_to_tidy}
 \title{Convert netcdf output from ECOHAM simulation to tidy dataframe.}
 \usage{
-eco_to_tidy(nc, nicemap)
+eco_to_tidy(nc)
 }
 \arguments{
 \item{nc}{connection to the netcdf file to read in.}

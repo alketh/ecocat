@@ -13,7 +13,7 @@
 # nc <- "z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc"
 # volume <- eco_to_tidy("z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc")
 
-eco_to_tidy <- function(nc, nicemap) {
+eco_to_tidy <- function(nc) {
   nc_read <- RNetCDF::open.nc(con = nc)
   on.exit(RNetCDF::close.nc(nc_read))
 
