@@ -4,13 +4,13 @@
 \alias{eco_to_tidy}
 \title{Convert netcdf output from ECOHAM simulation to tidy dataframe.}
 \usage{
-eco_to_tidy(nc)
+eco_to_tidy(nc, nicemap)
 }
 \arguments{
 \item{nc}{connection to the netcdf file to read in.}
 }
 \value{
-tidy dataframe with columns longitude, latitude, depth, time and variable-name.
+tidy dataframe with columns longitude, latitude, depth, time, variable-name, ecohambox-id.
 }
 \description{
 Read in netcdf output array from ECOHAM simulation and convert it to a tidy dataframe to allow
@@ -18,6 +18,6 @@ coupling with atlantistools.
 }
 \examples{
 nc <- system.file(package = "ecocat", "extdata/volume.nc")
-volume <- eco_to_tidy(nc)
+vol <- eco_to_tidy(nc)
 }
 
