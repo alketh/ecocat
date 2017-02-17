@@ -1,8 +1,17 @@
+#' Convert netcdf output from ECOHAM simulation to tidy dataframe.
+#'
+#' Read in netcdf output array from ECOHAM simulation and convert it to a tidy dataframe to allow
+#' coupling with atlantistools.
+#'
+#' @param nc connection to the netcdf file to read in.
+#' @return tidy dataframe with columns longitude, latitude, depth, time and variable-name.
+#' @export
+#'
 #' @examples
 #' nc <- system.file(package = "ecocat", "extdata/volume.nc")
 #' volume <- eco_to_tidy(nc)
-#'
-#' volume <- eco_to_tidy("z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc")
+# nc <- "z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc"
+# volume <- eco_to_tidy("z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc")
 
 eco_to_tidy <- function(nc) {
   nc_read <- RNetCDF::open.nc(con = nc)
