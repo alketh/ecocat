@@ -15,7 +15,7 @@ nicemap_df <- tibble(id_x = rep(1:d1, times = d2),
                      id_y = rep(1:d2, each = d1),
                      poly_code = unlist(nicemap))
 
-nicemap_df$id <- 1:nrow(nicemap_df)
+nicemap_df$ecoham_id <- 1:nrow(nicemap_df)
 
 # convert poly_code to polygon-ids
 nicemap_df$poly_code[nicemap_df$poly_code == "0"] <- NA
