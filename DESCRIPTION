@@ -24,6 +24,8 @@ Imports:
   ggplot2,
   purrr,
   atlantistools,
-  tibble
+  tibble,
+  rbgm
 VignetteBuilder: knitr
-Remotes: alketh/atlantistools
+Remotes: 
+  alketh/atlantistools
