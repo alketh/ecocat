@@ -32,6 +32,11 @@ is.na(nicemap_df$poly_code[nicemap_df$id_x == 15 & nicemap_df$id_y == 72])
 
 # Create dataframe with ECOHAM boxes
 nc_read <- RNetCDF::open.nc(con = system.file(package = "ecocat", "extdata/volume.nc"))
+
+# Grid is not percect...
+# plot(diff(RNetCDF::var.get.nc(nc_read, variable = "longitude")))
+# plot(diff(RNetCDF::var.get.nc(nc_read, variable = "latitude")))
+
 ecoham_layout <- expand.grid(RNetCDF::var.get.nc(nc_read, variable = "longitude"),
                              RNetCDF::var.get.nc(nc_read, variable = "latitude")) %>%
   as_tibble() %>%
