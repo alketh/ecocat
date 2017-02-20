@@ -25,7 +25,9 @@ Imports:
   purrr,
   atlantistools,
   tibble,
-  rbgm
+  rbgm,
+  raster,
+  sp
 VignetteBuilder: knitr
 Remotes: 
   alketh/atlantistools
