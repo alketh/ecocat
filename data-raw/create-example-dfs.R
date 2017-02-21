@@ -2,6 +2,7 @@ library("atlantistools")
 library("purrr")
 library("tibble")
 library("dplyr")
+library("ggplot2")
 
 bgm_df <- convert_bgm(bgm = "inst/extdata/NorthSea.bgm")
 
@@ -42,6 +43,12 @@ ecoham_layout <- expand.grid(RNetCDF::var.get.nc(nc_read, variable = "longitude"
   as_tibble() %>%
   set_names(c("longitude", "latitude")) %>%
   mutate(ecoham_id = 1:nrow(.))
+
+area <- RNetCDF::open.nc(con = system.file(package = "ecocat", "extdata/area.nc")) %>%
+  RNetCDF::var.get.nc(variable = "area") %>%
+  as.vector()
+
+ecoham_layout <- add_column(ecoham_layout, area)
 
 devtools::use_data(bgm_df, nicemap_df, ecoham_layout, overwrite = TRUE)
 
