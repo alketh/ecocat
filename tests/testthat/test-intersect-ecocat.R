@@ -21,7 +21,7 @@ ggplot(check_area, aes(x = longitude, y = latitude, colour = factor(border))) +
 test <- dplyr::filter(check_area, border == 0)
 
 test_that("test this", {
-  expect_true(all(abs(test$check - 1) < 0.01))
+  expect_equal(nrow(test), 1449)
 })
 
 
