@@ -41,7 +41,15 @@ intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
                                  polygon = overlap$box_id,
                                  area = area) %>%
   # Calculate % of intersected area within each ecoham grid cell and atlantis polygon.
-    atlantistools::agg_perc(data = ., col = "area", groups = c("ecoham_id", "polygon"), out = "wf_area")
+    atlantistools::agg_perc(data = ., col = "area", groups = c("ecoham_id"), out = "wf_area")
+
+  # Visually inspect the result!
+  # df <- broom::tidy(overlap) %>%
+  #   dplyr::mutate(id = as.numeric(id)) %>%
+  #   dplyr::left_join(overlap_area, by = "id")
+  #
+  # ggplot2::ggplot(df, ggplot2::aes(x = long, y = lat, group = group, fill = wf_area)) +
+  #   ggplot2::geom_polygon()
 
   return(overlap_area)
 }
