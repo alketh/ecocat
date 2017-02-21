@@ -24,11 +24,28 @@ intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
     raster::rasterToPolygons()
   # hard code reference system and projection into raster object. Use bgm projection.
   raster::projection(ecoham_spdf) <- sp::CRS("+init=epsg:4326")
-  ecoham_spdf <- sp::spTransform(ecoham_spdf, raster::projection(atlantis_df))
+  ecoham_spdf <- sp::spTransform(ecoham_spdf, raster::projection(atlantis_spdf))
 
   # Calculate spatial overlap between polygons and grid cells.
   overlap <- raster::intersect(atlantis_spdf, ecoham_spdf)
 
+  # WOW this data structure is pure cancer...
+  area <- overlap[, 1]@polygons %>%
+    purrr::map(~.@Polygons) %>%
+    purrr::flatten() %>%
+    purrr::map_dbl(~.@area)
+
+  # All we need is ecoham_id, polygon and area
+  overlap_area <- tibble::tibble(id = 1:nrow(overlap),
+                                 ecoham_id = overlap$ecoham_id,
+                                 polygon = overlap$box_id,
+                                 area = area)
+
+  ggplot2::ggplot(df, ggplot2::aes(x = long, y = lat, group = group, colour = cols)) +
+    ggplot2::geom_polygon()
+
+  ggplot2::ggplot(df, ggplot2::aes(x = long, y = lat, group = group, colour = cols)) +
+    ggplot2::geom_polygon()
 }
 
 # # method 1
