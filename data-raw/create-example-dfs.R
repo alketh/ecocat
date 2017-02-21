@@ -4,7 +4,8 @@ library("tibble")
 library("dplyr")
 library("ggplot2")
 
-bgm_df <- convert_bgm(bgm = "inst/extdata/NorthSea.bgm")
+bgm_df <- convert_bgm(bgm = "inst/extdata/NorthSea.bgm") %>%
+  as_tibble()
 
 nicemap <- readLines("inst/extdata/polygon-mask_ECOHAM.dat") %>%
   map(strsplit, split = "") %>%
