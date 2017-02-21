@@ -9,8 +9,14 @@
 #' @examples
 #' atlantis_bgm <- system.file(package = "ecocat", "extdata/NorthSea.bgm")
 #' overlap <- intersect_ecocat(atlantis_bgm, ecoham_layout)
-#'
-#' test <- raster::intersect(atlantis_df, ecoham_layout)
+
+# Please note that the area calculations and flux calculations (exchange.nc) are based on the
+# ECOHAM nicemap. Thus it doesn't make sense to sptially overlap the ATLANTIS Polygons
+# with the ECOHAM grid because the exchange is based on the nicemap grid-->polygon assignment
+# and is NOT based on the actual spatial overlap. The function is very precise, however
+# as the input itself is based on a coarser comparing with the actual overlap wouldn't make
+# the comparison more right but potentially more wrong.
+
 intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
   # this is heavily inspired by https://github.com/alketh/ecocat/issues/1
   # Thanks to Micheal Sumner!
@@ -40,17 +46,20 @@ intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
                                  ecoham_id = overlap$ecoham_id,
                                  polygon = overlap$box_id,
                                  area = area) %>%
+    dplyr::left_join(ecoham_layout, by = "ecoham_id") %>%
   # Calculate % of intersected area within each ecoham grid cell and atlantis polygon.
-    atlantistools::agg_perc(data = ., col = "area", groups = c("ecoham_id"), out = "wf_area")
+    dplyr::group_by_(~ecoham_id) %>%
+    dplyr::mutate_(wf_area = ~area.x/area.y)
+  # normalise to 1.
 
   # Visually inspect the result!
   # df <- broom::tidy(overlap) %>%
   #   dplyr::mutate(id = as.numeric(id)) %>%
   #   dplyr::left_join(overlap_area, by = "id")
   #
-  # ggplot2::ggplot(df, ggplot2::aes(x = long, y = lat, group = group, fill = wf_area)) +
+  # ggplot2::ggplot(df, ggplot2::aes(x = long, y = lat, group = group, fill = area.y)) +
   #   ggplot2::geom_polygon()
-
+  #
   return(overlap_area)
 }
 
