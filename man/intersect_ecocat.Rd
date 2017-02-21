@@ -4,13 +4,12 @@
 \alias{intersect_ecocat}
 \title{Calculate overlap between ecoham boxes and atlantis polygons.}
 \usage{
-intersect_ecocat(bgm_df, ecoham_layout)
+intersect_ecocat(atlantis_bgm, ecoham_layout)
 }
 \arguments{
-\item{bgm_df}{Dataframe generated with atlantistools::convert_bgm().}
+\item{atlantis_bgm}{bgm file of the ATLANTIS model.}
 
-\item{ecoham_layout}{Dataframe with columns longitude, latidude (box mid points) and the ecoham_id for
-each box. See create-example-dfs.R for details.}
+\item{ecoham_layout}{dataframe of the ECOHAM layout.}
 }
 \value{
 Dataframe
@@ -19,6 +18,9 @@ Dataframe
 Calculate overlap between ecoham boxes and atlantis polygons.
 }
 \examples{
-intersect_ecocat(bgm_df, ecoham_layout)
+atlantis_bgm <- system.file(package = "ecocat", "extdata/NorthSea.bgm")
+overlap <- intersect_ecocat(atlantis_bgm, ecoham_layout)
+
+test <- raster::intersect(atlantis_df, ecoham_layout)
 }
 

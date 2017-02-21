@@ -10,7 +10,7 @@
 #' atlantis_bgm <- system.file(package = "ecocat", "extdata/NorthSea.bgm")
 #' overlap <- intersect_ecocat(atlantis_bgm, ecoham_layout)
 #'
-#' test <- raster::intersect(atlantis_df, ecoham_df)
+#' test <- raster::intersect(atlantis_df, ecoham_layout)
 intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
   # this is heavily inspired by https://github.com/alketh/ecocat/issues/1
   # Thanks to Micheal Sumner!
@@ -40,6 +40,8 @@ intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
                                  ecoham_id = overlap$ecoham_id,
                                  polygon = overlap$box_id,
                                  area = area)
+
+  # Compare area of intersected polygons with ecoham area!
 
   df <- broom::tidy(overlap) %>%
     dplyr::mutate(id = as.numeric(id)) %>%
