@@ -54,26 +54,6 @@ intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
   return(overlap_area)
 }
 
-# # method 1
-# atlantis_df <- rbgm::bgmfile(x = system.file(package = "ecocat", "extdata/NorthSea.bgm")) %>%
-#   rbgm::boxSpatial()
-#
-# ecoham_df <- raster::rasterFromXYZ(xyz = ecoham_layout, digits = 3) %>%
-#   raster::rasterToPolygons()
-#
-# raster::projection(ecoham_df) <- sp::CRS("+init=epsg:4326")
-#
-# ecoham_df <- sp::spTransform(ecoham_df, raster::projection(atlantis_df))
-#
-# raster::intersect(atlantis_df, ecoham_df)
-#
-# # method 2
-# atlantis_df <- rbgm::bgmfile(x = system.file(package = "ecocat", "extdata/NorthSea.bgm")) %>%
-#   rbgm::boxSpatial()
-# ecoham_df <- raster::raster(system.file(package = "ecocat", "extdata/volume.nc")) %>%
-#   raster::rasterToPolygons() %>%
-#   sp::spTransform(raster::projection(atlantis_df))
-#
-# raster::intersect(atlantis_df, ecoham_df)
+
 
 
