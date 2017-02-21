@@ -48,7 +48,10 @@ area <- RNetCDF::open.nc(con = system.file(package = "ecocat", "extdata/area.nc"
   RNetCDF::var.get.nc(variable = "area") %>%
   as.vector()
 
-ecoham_layout <- add_column(ecoham_layout, area)
+ecoham_layout <- add_column(ecoham_layout, area = area)
+
+ggplot(ecoham_layout, aes(x = longitude, y = latitude, col = area)) +
+  geom_point()
 
 devtools::use_data(bgm_df, nicemap_df, ecoham_layout, overwrite = TRUE)
 
