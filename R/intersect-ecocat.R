@@ -16,12 +16,12 @@ intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
   # Thanks to Micheal Sumner!
   # convert bgm to SpatialPolygonsDataFrame
   atlantis_spdf <- rbgm::bgmfile(x = atlantis_bgm) %>%
-    rbgm::boxSpatial()
+    rbgm::boxSpatial(bgm = .)
 
   # convert ecoham layout to SpatialPolygonsDataFrame
   # grid is not perfectly regular, use projection from bgm file.
   ecoham_spdf <- raster::rasterFromXYZ(xyz = ecoham_layout, digits = 3) %>%
-    raster::rasterToPolygons()
+    raster::rasterToPolygons(x = .)
   # hard code reference system and projection into raster object. Use bgm projection.
   raster::projection(ecoham_spdf) <- sp::CRS("+init=epsg:4326")
   ecoham_spdf <- sp::spTransform(ecoham_spdf, raster::projection(atlantis_spdf))
@@ -32,21 +32,16 @@ intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
   # WOW this data structure is pure cancer...
   area <- overlap[, 1]@polygons %>%
     purrr::map(~.@Polygons) %>%
-    purrr::flatten() %>%
+    purrr::flatten(.x = .) %>%
     purrr::map_dbl(~.@area)
 
   # All we need is ecoham_id, polygon and area
   overlap_area <- tibble::tibble(id = 1:nrow(overlap),
                                  ecoham_id = overlap$ecoham_id,
                                  polygon = overlap$box_id,
-                                 area = area)
-
-  df <- broom::tidy(overlap) %>%
-    dplyr::mutate(id = as.numeric(id)) %>%
-    dplyr::left_join(overlap_area)
-
-  ggplot2::ggplot(df, ggplot2::aes(x = long, y = lat, group = group, fill = area)) +
-    ggplot2::geom_polygon()
+                                 area = area) %>%
+  # Calculate % of intersected area within each ecoham grid cell and atlantis polygon.
+    atlantistools::agg_perc(data = ., col = "area", groups = c("ecoham_id", "polygon"), out = "wf_area")
 
   return(overlap_area)
 }
