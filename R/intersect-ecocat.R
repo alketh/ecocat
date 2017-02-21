@@ -41,14 +41,14 @@ intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
                                  polygon = overlap$box_id,
                                  area = area)
 
-  # Compare area of intersected polygons with ecoham area!
-
   df <- broom::tidy(overlap) %>%
     dplyr::mutate(id = as.numeric(id)) %>%
     dplyr::left_join(overlap_area)
 
   ggplot2::ggplot(df, ggplot2::aes(x = long, y = lat, group = group, fill = area)) +
     ggplot2::geom_polygon()
+
+  return(overlap_area)
 }
 
 # # method 1
