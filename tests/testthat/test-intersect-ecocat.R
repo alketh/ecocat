@@ -1,6 +1,8 @@
 context("test area calculations")
 
 library("ggplot2")
+library("dplyr")
+library("purrr")
 
 atlantis_bgm <- system.file(package = "ecocat", "extdata/NorthSea.bgm")
 overlap <- intersect_ecocat(atlantis_bgm, ecoham_layout)
@@ -30,4 +32,15 @@ test_that("test this", {
 # grid area is removed during the intersect!
 # NOTE: Test does only work with visual inspection!
 
+# compare area calculations in ATLANTIS and ECOHAM
+area_at <- rbgm::bgmfile(system.file(package = "ecocat", "extdata/NorthSea.bgm"))
+area_at <- area_at$boxes %>%
+  select(area, polygon = contains("bx0"))
 
+area_eco <- overlap %>%
+  group_by(polygon) %>%
+  summarise(area = sum(area.x))
+
+comp_area <- left_join(area_at, area_eco, by = "polygon") %>%
+  set_names(c("area_atlantis", "polygon", "area_ecoham")) %>%
+  mutate(at_div_eco = area_atlantis/area_ecoham)
