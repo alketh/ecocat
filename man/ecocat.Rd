@@ -4,10 +4,12 @@
 \alias{ecocat}
 \title{Convert ECOHAM output to ATLANTIS output.}
 \usage{
-ecocat(eco_out, nicemap_df)
+ecocat(eco_out, col, nicemap_df)
 }
 \arguments{
 \item{eco_out}{dataframe generated with \link{eco-to-tidy}.}
+
+\item{col}{column to convert from ecoham output to atlantis output.}
 
 \item{nicemap_df}{dataframe of the nicemap.}
 }
@@ -18,6 +20,7 @@ Dataframe.
 Assign spatial output from ECOHAM simulation to ATLANTIS polygons.
 }
 \examples{
-ecocat(ref_vol, nicemap_df)
+eco_out <- ref_vol
+ecocat(ref_vol, col = "vol", nicemap_df)
 }
 
