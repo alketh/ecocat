@@ -20,7 +20,5 @@ Calculate overlap between ecoham boxes and atlantis polygons.
 \examples{
 atlantis_bgm <- system.file(package = "ecocat", "extdata/NorthSea.bgm")
 overlap <- intersect_ecocat(atlantis_bgm, ecoham_layout)
-
-test <- raster::intersect(atlantis_df, ecoham_layout)
 }
 
