@@ -26,8 +26,6 @@
 #' }
 "nicemap_df"
 
-
-
 #' ecoham_layout
 #'
 #' mid points in latitude and longitude for each ecoham box.
@@ -39,3 +37,18 @@
 #'   \item{\code{ecoham_id}}{integer. ECOHAM box id.}
 #' }
 "ecoham_layout"
+
+#' Reference dataframe for volume per ecoham grid.
+#'
+#' Volume in m³ for each ECOHAM grid and depth layer.
+#'
+#' @format A data frame with 17638 rows and 6 variables:
+#' \describe{
+#'   \item{\code{longitude}}{double. ongitude:units = "degrees_east".}
+#'   \item{\code{latitude}}{double. latitude:units = "degrees_north".}
+#'   \item{\code{depth}}{double. depth:units = "meters".}
+#'   \item{\code{time}}{double. time:units = "days since 2000-1-1 00:00:00".}
+#'   \item{\code{vol}}{double. vol:units = "m3".}
+#'   \item{\code{ecoham_id}}{integer. grid cell.}
+#' }
+"ref_vol"

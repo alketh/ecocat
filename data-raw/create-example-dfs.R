@@ -46,7 +46,7 @@ ecoham_layout <- expand.grid(RNetCDF::var.get.nc(nc_read, variable = "longitude"
   mutate(ecoham_id = 1:nrow(.))
 
 area <- RNetCDF::open.nc(con = system.file(package = "ecocat", "extdata/area.nc")) %>%
-  RNetCDF::var.get.nc(variable = "area") %>%
+  RNetCDF::var.get.nc(ncfile = ., variable = "area") %>%
   as.vector()
 
 ecoham_layout <- add_column(ecoham_layout, area = area)
@@ -54,6 +54,8 @@ ecoham_layout <- add_column(ecoham_layout, area = area)
 ggplot(ecoham_layout, aes(x = longitude, y = latitude, col = area)) +
   geom_point()
 
-devtools::use_data(bgm_df, nicemap_df, ecoham_layout, overwrite = TRUE)
+ref_vol <- eco_to_tidy("inst/extdata/volume.nc")
+
+devtools::use_data(bgm_df, nicemap_df, ecoham_layout, ref_vol, overwrite = TRUE)
 
 rm(list = ls())
