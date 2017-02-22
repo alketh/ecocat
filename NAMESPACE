@@ -3,5 +3,6 @@
 export("%>%")
 export(eco_to_tidy)
 export(ecocat)
+export(extract_unit)
 export(intersect_ecocat)
 importFrom(magrittr,"%>%")
