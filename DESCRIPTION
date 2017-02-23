@@ -28,7 +28,7 @@ Imports:
   rbgm,
   raster,
   sp,
-  rgeos,
+  maps,
   rgdal
 VignetteBuilder: knitr
 Remotes: 
