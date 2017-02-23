@@ -23,7 +23,7 @@ ecocat <- function(nc, nicemap_df) {
   # from mmol to mol --> divide by 1000
   # from g to mg     --> multiply by 1000
   # Thus x [mmol] * 14.0067 [g/mol] / 1000 * 1000
-  if (unit[length(unit)] == "mmol") {
+  if (unit[length(unit)] == "mmolN m-3") {
     eco_tidy$ecoham_out <- eco_tidy$ecoham_out * 14.0067
   }
 
