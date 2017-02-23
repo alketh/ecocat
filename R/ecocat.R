@@ -3,15 +3,18 @@
 #' Assign spatial output from ECOHAM simulation to ATLANTIS polygons.
 #'
 #' @inheritParams eco_to_tidy
-#' @param nicemap_df dataframe of the nicemap.
+#' @param nicemap dataframe of the nicemap.
 #' @return Dataframe.
 #' @export
 #'
 #' @examples
 #' nc <- system.file(package = "ecocat", "extdata/volume.nc")
-#' df <- ecocat(nc, nicemap_df)
+#' df <- ecocat(nc)
+#'
+#' nc <- system.file(package = "ecocat", "extdata/d1.nc")
+#' df <- ecocat(nc)
 
-ecocat <- function(nc, nicemap_df) {
+ecocat <- function(nc, nicemap = nicemap_df) {
   # read in data and convert to tidy dataframe
   eco_tidy <- eco_to_tidy(nc = nc)
 
@@ -27,9 +30,9 @@ ecocat <- function(nc, nicemap_df) {
     eco_tidy$ecoham_out <- eco_tidy$ecoham_out * 14.0067
   }
 
-  wuwu <- dplyr::left_join(eco_out, nicemap_df, by = "ecoham_id") %>%
+  atlantis_df <- dplyr::left_join(eco_tidy, nicemap, by = "ecoham_id") %>%
     dplyr::filter_(~!is.na(polygon)) %>%
-    atlantistools::agg_data(data = ., col = col, groups = c("time", "polygon"), out = col, fun = mean)
+    atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon"), out = "ecoham_out", fun = mean)
 
-  return(wuwu)
+  return(atlantis_df)
 }
