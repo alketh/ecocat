@@ -4,12 +4,12 @@
 \alias{intersect_ecocat}
 \title{Calculate overlap between ecoham boxes and atlantis polygons.}
 \usage{
-intersect_ecocat(atlantis_bgm, ecoham_layout)
+intersect_ecocat(atlantis_bgm, eco_layout = ecoham_layout)
 }
 \arguments{
 \item{atlantis_bgm}{bgm file of the ATLANTIS model.}
 
-\item{ecoham_layout}{dataframe of the ECOHAM layout.}
+\item{eco_layout}{dataframe of the ECOHAM layout.}
 }
 \value{
 Dataframe

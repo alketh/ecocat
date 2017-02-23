@@ -1,7 +1,7 @@
 #' Calculate overlap between ecoham boxes and atlantis polygons.
 #'
 #' @param atlantis_bgm bgm file of the ATLANTIS model.
-#' @param ecoham_layout dataframe of the ECOHAM layout.
+#' @param eco_layout dataframe of the ECOHAM layout.
 #'
 #' @return Dataframe
 #' @export
@@ -17,7 +17,7 @@
 # as the input itself is based on a coarser comparing with the actual overlap wouldn't make
 # the comparison more right but potentially more wrong.
 
-intersect_ecocat <- function(atlantis_bgm, ecoham_layout) {
+intersect_ecocat <- function(atlantis_bgm, eco_layout = ecoham_layout) {
   # this is heavily inspired by https://github.com/alketh/ecocat/issues/1
   # Thanks to Micheal Sumner!
   # convert bgm to SpatialPolygonsDataFrame

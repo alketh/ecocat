@@ -6,7 +6,7 @@
 \title{Reference dataframe for volume per ecoham grid.}
 \format{A data frame with 17638 rows and 6 variables:
 \describe{
-  \item{\code{longitude}}{double. ongitude:units = "degrees_east".}
+  \item{\code{longitude}}{double. longitude:units = "degrees_east".}
   \item{\code{latitude}}{double. latitude:units = "degrees_north".}
   \item{\code{depth}}{double. depth:units = "meters".}
   \item{\code{time}}{double. time:units = "days since 2000-1-1 00:00:00".}
@@ -17,7 +17,7 @@
 ref_vol
 }
 \description{
-Volume in m³ for each ECOHAM grid and depth layer.
+Volume in m^3 for each ECOHAM grid and depth layer.
 }
 \keyword{datasets}
 
