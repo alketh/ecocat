@@ -1,24 +1,19 @@
 context("test area calculations")
 
-library("ggplot2")
-library("dplyr")
-library("purrr")
-
 atlantis_bgm <- system.file(package = "ecocat", "extdata/NorthSea.bgm")
 overlap <- intersect_ecocat(atlantis_bgm, ecoham_layout)
 
-
 # Compare area of intersected polygons with ecoham area!
-check_area <- overlap_area %>%
+check_area <- overlap %>%
   dplyr::group_by_(~ecoham_id) %>%
-  dplyr::summarise_(area_intersect = ~sum(area)) %>%
+  dplyr::summarise_(area_intersect = ~sum(area.x)) %>%
   dplyr::left_join(ecoham_layout, by = "ecoham_id") %>%
   dplyr::filter_(~!is.na(area)) %>%
   dplyr::mutate(check = area/area_intersect) %>%
   dplyr::mutate(border = ifelse(abs(check - 1) > 0.01, 1, 0))
 
-ggplot(check_area, aes(x = longitude, y = latitude, colour = factor(border))) +
-  geom_point()
+ggplot2::ggplot(check_area, ggplot2::aes(x = longitude, y = latitude, colour = factor(border))) +
+  ggplot2::geom_point()
 
 test <- dplyr::filter(check_area, border == 0)
 
@@ -35,12 +30,12 @@ test_that("test this", {
 # compare area calculations in ATLANTIS and ECOHAM
 area_at <- rbgm::bgmfile(system.file(package = "ecocat", "extdata/NorthSea.bgm"))
 area_at <- area_at$boxes %>%
-  select(area, polygon = contains("bx0"))
+  dplyr::select(area, polygon = dplyr::contains("bx0"))
 
 area_eco <- overlap %>%
-  group_by(polygon) %>%
-  summarise(area = sum(area.x))
+  dplyr::group_by(polygon) %>%
+  dplyr::summarise(area = sum(area.x))
 
-comp_area <- left_join(area_at, area_eco, by = "polygon") %>%
-  set_names(c("area_atlantis", "polygon", "area_ecoham")) %>%
-  mutate(at_div_eco = area_atlantis/area_ecoham)
+comp_area <- dplyr::left_join(area_at, area_eco, by = "polygon") %>%
+  purrr::set_names(x = ., c("area_atlantis", "polygon", "area_ecoham")) %>%
+  dplyr::mutate(at_div_eco = area_atlantis/area_ecoham)
