@@ -4,10 +4,10 @@
 \alias{ecocat}
 \title{Convert ECOHAM output to ATLANTIS output.}
 \usage{
-ecocat(eco_out, col, nicemap_df)
+ecocat(nc, nicemap_df)
 }
 \arguments{
-\item{col}{column to convert from ecoham output to atlantis output.}
+\item{nc}{connection to the netcdf file to read in.}
 
 \item{nicemap_df}{dataframe of the nicemap.}
 }
@@ -18,7 +18,7 @@ Dataframe.
 Assign spatial output from ECOHAM simulation to ATLANTIS polygons.
 }
 \examples{
-eco_out <- ref_vol
-ecocat(ref_vol, col = "vol", nicemap_df)
+nc <- system.file(package = "ecocat", "extdata/volume.nc")
+df <- ecocat(nc, nicemap_df)
 }
 
