@@ -7,8 +7,6 @@
 ecocat(eco_out, col, nicemap_df)
 }
 \arguments{
-\item{eco_out}{dataframe generated with \link{eco-to-tidy}.}
-
 \item{col}{column to convert from ecoham output to atlantis output.}
 
 \item{nicemap_df}{dataframe of the nicemap.}
