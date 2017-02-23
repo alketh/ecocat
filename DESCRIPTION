@@ -29,7 +29,8 @@ Imports:
   raster,
   sp,
   maps,
-  rgdal
+  rgdal,
+  rgeos
 VignetteBuilder: knitr
 Remotes: 
   alketh/atlantistools
