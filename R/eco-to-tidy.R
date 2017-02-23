@@ -42,8 +42,8 @@ eco_to_tidy <- function(nc) {
 
   # Combine to tibble and remove missing values.
   ecodf <- tibble::tibble(c1, c2, c3, c4, c5 = as.vector(ar), c6) %>%
-    purrr::set_names(c(variables, "ecoham_id")) %>%
-    dplyr::filter_(lazyeval::interp(~!is.na(var), var = as.name(variables[length(variables)])))
+    purrr::set_names(c(variables[-length(variables)], "ecoham_out", "ecoham_id")) %>%
+    dplyr::filter_(~!is.na(ecoham_out))
 
   return(ecodf)
 }
