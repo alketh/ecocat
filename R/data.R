@@ -35,6 +35,7 @@
 #'   \item{\code{longitude}}{double. longitude.}
 #'   \item{\code{latitude}}{double. latitude.}
 #'   \item{\code{ecoham_id}}{integer. ECOHAM box id.}
+#'   \item{\code{area}}{double. grid area in square meters.}
 #' }
 "ecoham_layout"
 
