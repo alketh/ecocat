@@ -28,7 +28,8 @@ Imports:
   rbgm,
   raster,
   sp,
-  rgeos
+  rgeos,
+  rgdal
 VignetteBuilder: knitr
 Remotes: 
   alketh/atlantistools
