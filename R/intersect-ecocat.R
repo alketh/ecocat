@@ -26,7 +26,7 @@ intersect_ecocat <- function(atlantis_bgm, eco_layout = ecoham_layout) {
 
   # convert ecoham layout to SpatialPolygonsDataFrame
   # grid is not perfectly regular, use projection from bgm file.
-  ecoham_spdf <- raster::rasterFromXYZ(xyz = ecoham_layout, digits = 3) %>%
+  ecoham_spdf <- raster::rasterFromXYZ(xyz = eco_layout, digits = 3) %>%
     raster::rasterToPolygons(x = .)
   # hard code reference system and projection into raster object. Use bgm projection.
   raster::projection(ecoham_spdf) <- sp::CRS("+init=epsg:4326")
@@ -46,7 +46,7 @@ intersect_ecocat <- function(atlantis_bgm, eco_layout = ecoham_layout) {
                                  ecoham_id = overlap$ecoham_id,
                                  polygon = overlap$box_id,
                                  area = area) %>%
-    dplyr::left_join(ecoham_layout, by = "ecoham_id") %>%
+    dplyr::left_join(eco_layout, by = "ecoham_id") %>%
   # Calculate % of intersected area within each ecoham grid cell and atlantis polygon.
     dplyr::group_by_(~ecoham_id) %>%
     dplyr::mutate_(wf_area = ~area.x/area.y)

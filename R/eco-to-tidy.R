@@ -10,6 +10,7 @@
 #' @examples
 #' nc <- system.file(package = "ecocat", "extdata/volume.nc")
 #' vol <- eco_to_tidy(nc)
+
 # nc <- "z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc"
 # volume <- eco_to_tidy("z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc")
 
