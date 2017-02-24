@@ -4,12 +4,17 @@
 \alias{ecocat}
 \title{Convert ECOHAM output to ATLANTIS output.}
 \usage{
-ecocat(nc, nicemap = ecocat::nicemap_df)
+ecocat(nc, nicemap = ecocat::nicemap_df, nominal_dz)
 }
 \arguments{
 \item{nc}{connection to the netcdf file to read in.}
 
 \item{nicemap}{dataframe of the nicemap.}
+
+\item{nominal_dz}{dataframe cumulative water column thickness per ATLANTIS polygon and layer.}
+
+\item{vol_df}{dataframe Volume of water per ATLANTIS polygon, layer and timestep. The dataframe
+should be generated with `atlantistools::load_nc_physics` from any ATLANTIS simulation.}
 }
 \value{
 Dataframe.

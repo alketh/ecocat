@@ -4,6 +4,9 @@
 #'
 #' @inheritParams eco_to_tidy
 #' @param nicemap dataframe of the nicemap.
+#' @param vol_df dataframe Volume of water per ATLANTIS polygon, layer and timestep. The dataframe
+#' should be generated with `atlantistools::load_nc_physics` from any ATLANTIS simulation.
+#' @param nominal_dz dataframe cumulative water column thickness per ATLANTIS polygon and layer.
 #' @return Dataframe.
 #' @export
 #'
@@ -14,7 +17,7 @@
 #' nc <- system.file(package = "ecocat", "extdata/d1.nc")
 #' df <- ecocat(nc)
 
-ecocat <- function(nc, nicemap = ecocat::nicemap_df) {
+ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz) {
   # read in data and convert to tidy dataframe
   eco_tidy <- eco_to_tidy(nc = nc)
 
