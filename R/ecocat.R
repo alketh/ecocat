@@ -35,8 +35,21 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df) {
     eco_tidy$time <- (eco_tidy$time + 1) / 365
   }
 
+  # Convert mean depth to max depth! Iteratively calculate max depth per depth layer.
+  depths <- sort(unique(eco_tidy$depth))
+  for (i in seq_along(depths)) {
+    if (i == 1) { # minimum of surface layer is 0 by default.
+      depths_max <- vector(mode = "double", length = length(depths))
+      depths_max[i] <- depths[i] * 2
+    } else {
+      depths_max[i] <- depths[i] * 2 - depths_max[i - 1]
+    }
+  }
+  eco_tidy <- dplyr::left_join(eco_tidy, tibble::tibble(depth = depths, max_depth = depths_max), by = "depth")
+
   atlantis_df <- dplyr::left_join(eco_tidy, nicemap, by = "ecoham_id") %>%
     dplyr::filter_(~!is.na(polygon)) %>%
+    dplyr::mutate(depth = dplyr::recode(depth, ))
     atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon"), out = "ecoham_out", fun = mean)
 
   return(atlantis_df)
