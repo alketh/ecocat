@@ -45,11 +45,11 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df) {
       depths_max[i] <- depths[i] * 2 - depths_max[i - 1]
     }
   }
-  eco_tidy <- dplyr::left_join(eco_tidy, tibble::tibble(depth = depths, max_depth = depths_max), by = "depth")
 
+  # Combine dataframes and convert output!
   atlantis_df <- dplyr::left_join(eco_tidy, nicemap, by = "ecoham_id") %>%
     dplyr::filter_(~!is.na(polygon)) %>%
-    dplyr::mutate(depth = dplyr::recode(depth, ))
+    dplyr::left_join(tibble::tibble(depth = depths, max_depth = depths_max), by = "depth") %>%
     atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon"), out = "ecoham_out", fun = mean)
 
   return(atlantis_df)
