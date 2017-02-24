@@ -2,22 +2,21 @@ language: r
 
 warnings_are_errors: true
 
-cache: packages
+language: r
 
-sudo: required
+warnings_are_errors: true
 
-before_install:
-  - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev
+sudo: true
 
-r_packages:
+r_binary_packages:
   - rgdal
+  - sp
+  - rgeos
+  - proj4
 
 apt_packages:
   - libudunits2-dev
   - libnetcdf-dev
-
-r_binary_packages:
-  - proj4
 
 r_github_packages:
   - jimhester/covr
