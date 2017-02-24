@@ -30,6 +30,11 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df) {
     eco_tidy$ecoham_out <- eco_tidy$ecoham_out * 14.0067
   }
 
+  # Check if time is given in days and convert to years!
+  if (stringr::str_detect(unit["time"], pattern = "days")) {
+    eco_tidy$time <- (eco_tidy$time + 1) / 365
+  }
+
   atlantis_df <- dplyr::left_join(eco_tidy, nicemap, by = "ecoham_id") %>%
     dplyr::filter_(~!is.na(polygon)) %>%
     atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon"), out = "ecoham_out", fun = mean)
