@@ -56,6 +56,15 @@ ggplot(ecoham_layout, aes(x = longitude, y = latitude, col = area)) +
 
 ref_vol <- eco_to_tidy("inst/extdata/volume.nc")
 
-devtools::use_data(bgm_df, nicemap_df, ecoham_layout, ref_vol, overwrite = TRUE)
+# Create dataframe of nominal_dz values.
+nominal_dz_df <- load_init(dir = "z:/Atlantis_models/baserun/", init = "init_NorthSea.nc", vars = "nominal_dz")[[1]] %>%
+  filter(!(is.na(layer) | layer == 7)) %>%
+  split(., .$polygon) %>%
+  purrr::map(., ~arrange(., desc(layer))) %>%
+  purrr::map_df(., ~dplyr::mutate(., max_nominal_dz = cumsum(atoutput))) %>%
+  select(polygon, layer, max_nominal_dz)
+
+
+devtools::use_data(bgm_df, nicemap_df, ecoham_layout, ref_vol, nominal_dz_df, overwrite = TRUE)
 
 rm(list = ls())
