@@ -4,10 +4,13 @@
 \alias{extract_unit}
 \title{Extract units for each variable in a netcdf file}
 \usage{
-extract_unit(nc)
+extract_unit(nc, attribute = "units")
 }
 \arguments{
 \item{nc}{connection to the netcdf file to read in.}
+
+\item{attribute}{either a character string of the name of the attribute (deault = "units") or the
+attribute id (starting at 0).}
 }
 \description{
 Extract units for each variable in a netcdf file
