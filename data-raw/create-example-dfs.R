@@ -62,8 +62,8 @@ nominal_dz_df <- load_init(dir = "z:/Atlantis_models/baserun/", init = "init_Nor
   split(., .$polygon) %>%
   purrr::map(., ~arrange(., desc(layer))) %>%
   purrr::map_df(., ~dplyr::mutate(., max_nominal_dz = cumsum(atoutput))) %>%
-  select(polygon, layer, max_nominal_dz)
-
+  select(polygon, layer, max_nominal_dz) %>%
+  as_tibble()
 
 devtools::use_data(bgm_df, nicemap_df, ecoham_layout, ref_vol, nominal_dz_df, overwrite = TRUE)
 
