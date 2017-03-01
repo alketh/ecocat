@@ -53,3 +53,17 @@
 #'   \item{\code{ecoham_id}}{integer. grid cell.}
 #' }
 "ref_vol"
+
+
+
+#' Cumulative sum of nominal_dz from GNS-Atlantis model.
+#'
+#' Cumulative nominal_dz.
+#'
+#' @format A data frame with 95 rows and 3 variables:
+#' \describe{
+#'   \item{\code{polygon}}{integer. ATLANTIS polygon.}
+#'   \item{\code{layer}}{double. ATLANTIS layer.}
+#'   \item{\code{max_nominal_dz}}{double. maximum cimulative nominal_dz per polygon and layer.}
+#' }
+"nominal_dz_df"
