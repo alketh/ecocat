@@ -17,7 +17,7 @@
 #' nc <- system.file(package = "ecocat", "extdata/d1.nc")
 #' df <- ecocat(nc)
 
-ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz) {
+  ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nominal_dz_df) {
   # read in data and convert to tidy dataframe
   eco_tidy <- eco_to_tidy(nc = nc)
 

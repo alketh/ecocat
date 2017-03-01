@@ -4,7 +4,7 @@
 \alias{ecocat}
 \title{Convert ECOHAM output to ATLANTIS output.}
 \usage{
-ecocat(nc, nicemap = ecocat::nicemap_df, nominal_dz)
+ecocat(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nominal_dz_df)
 }
 \arguments{
 \item{nc}{connection to the netcdf file to read in.}
