@@ -4,8 +4,6 @@
 #'
 #' @inheritParams eco_to_tidy
 #' @param nicemap dataframe of the nicemap.
-#' @param vol_df dataframe Volume of water per ATLANTIS polygon, layer and timestep. The dataframe
-#' should be generated with `atlantistools::load_nc_physics` from any ATLANTIS simulation.
 #' @param nominal_dz dataframe cumulative water column thickness per ATLANTIS polygon and layer.
 #' @return Dataframe.
 #' @export
