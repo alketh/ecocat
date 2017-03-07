@@ -49,7 +49,7 @@
 #'   \item{\code{ecoham_out}}{double. vol:units = "m3".}
 #'   \item{\code{ecoham_id}}{integer. grid cell.}
 #' }
-"ref_vol"
+"ecoham_vol"
 
 #' Cumulative sum of nominal_dz from GNS-Atlantis model.
 #'
