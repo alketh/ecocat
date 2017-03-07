@@ -4,9 +4,11 @@ library("tibble")
 library("dplyr")
 library("ggplot2")
 
+# Convert bgm-file to tidy dataframe --------------------------------------------------------------
 bgm_df <- convert_bgm(bgm = "inst/extdata/NorthSea.bgm") %>%
   as_tibble()
 
+# Convert nicemap to tidy dataframe ---------------------------------------------------------------
 nicemap <- readLines("inst/extdata/polygon-mask_ECOHAM.dat") %>%
   map(strsplit, split = "") %>%
   flatten()  # strsplit creates a list within a list...
@@ -32,6 +34,7 @@ nicemap_df$poly_code[nicemap_df$id_x == 47 & nicemap_df$id_y == 42] == "J"
 nicemap_df$poly_code[nicemap_df$id_x == 70 & nicemap_df$id_y == 49] == "N"
 is.na(nicemap_df$poly_code[nicemap_df$id_x == 15 & nicemap_df$id_y == 72])
 
+# Extract ecoham box layout from volume.nc --------------------------------------------------------
 # Create dataframe with ECOHAM boxes
 nc_read <- RNetCDF::open.nc(con = system.file(package = "ecocat", "extdata/volume.nc"))
 
@@ -54,9 +57,10 @@ ecoham_layout <- add_column(ecoham_layout, area = area)
 ggplot(ecoham_layout, aes(x = longitude, y = latitude, col = area)) +
   geom_point()
 
+# Convert Volume for each ecoham Grid and depth layer ---------------------------------------------
 ref_vol <- eco_to_tidy("inst/extdata/volume.nc")
 
-# Create dataframe of nominal_dz values.
+# Create dataframe of nominal_dz values -----------------------------------------------------------
 nominal_dz_df <- load_init(dir = "z:/Atlantis_models/baserun/", init = "init_NorthSea.nc", vars = "nominal_dz")[[1]] %>%
   filter(!(is.na(layer) | layer == 7)) %>%
   split(., .$polygon) %>%
@@ -65,6 +69,7 @@ nominal_dz_df <- load_init(dir = "z:/Atlantis_models/baserun/", init = "init_Nor
   select(polygon, layer, max_nominal_dz) %>%
   as_tibble()
 
+# Write files and cleanup -------------------------------------------------------------------------
 devtools::use_data(bgm_df, nicemap_df, ecoham_layout, ref_vol, nominal_dz_df, overwrite = TRUE)
 
 rm(list = ls())
