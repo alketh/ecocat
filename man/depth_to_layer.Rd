@@ -25,8 +25,6 @@ df <- ecocat(nc)
 df <- dplyr::select(df, depth, polygon)
 df <- unique(df)
 poly_depth <- df
-polygon <- df$polygon
-mean_depth <- df$depth
 nominal_dz <- ecocat::nominal_dz_df
 }
 
