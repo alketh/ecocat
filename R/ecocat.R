@@ -36,22 +36,21 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
     eco_tidy$time <- (eco_tidy$time + 1) / 365
   }
 
-  # Convert mean depth to max depth! Iteratively calculate max depth per depth layer.
-  depths <- sort(unique(eco_tidy$depth))
-  for (i in seq_along(depths)) {
-    if (i == 1) { # minimum of surface layer is 0 by default.
-      depths_max <- vector(mode = "double", length = length(depths))
-      depths_max[i] <- depths[i] * 2
-    } else {
-      depths_max[i] <- depths[i] * 2 - depths_max[i - 1]
-    }
-  }
-
-  # Combine dataframes and convert output!
+  # Add Atlantis polygons based on nicemap and restrict ECOHAM to ATLANTIS area.
   atlantis_df <- dplyr::left_join(eco_tidy, nicemap, by = "ecoham_id") %>%
-    dplyr::filter_(~!is.na(polygon)) %>%
-    dplyr::left_join(tibble::tibble(depth = depths, max_depth = depths_max), by = "depth") %>%
-    atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon"), out = "ecoham_out", fun = mean)
+    dplyr::filter_(~!is.na(polygon))
 
-  return(atlantis_df)
+  # Assign ATLANTIS layers based on ECOHAM grid layer and polygon combination. Create a dataframe
+  # with unique polygon grid depth combinations to speed up calculations.
+  poly_depth <- atlantis_df %>%
+    dplyr::select_(~depth, ~polygon) %>%
+    unique() %>%
+    depth_to_layer(nominal_dz = nominal_dz)
+
+  # Add layer information and aggregate data!
+  atlantis_agg <- atlantis_df %>%
+    dplyr::left_join(poly_depth, by = c("polygon", "depth")) %>%
+    atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon", "layer"), out = "ecoham_out", fun = mean)
+
+  return(atlantis_agg)
 }
