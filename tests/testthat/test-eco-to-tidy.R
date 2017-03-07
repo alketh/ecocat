@@ -3,7 +3,7 @@ context("test specific values in dataframe")
 vol <- eco_to_tidy(system.file("extdata/volume.nc", package = "ecocat"))
 
 test_that("test this", {
-  expect_equal(dim(vol), c(17638, 6))
+  expect_equal(dim(vol), c(17638, 4))
 })
 
 # compare ecoham/atlantis/reality layout.
