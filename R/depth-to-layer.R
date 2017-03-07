@@ -55,6 +55,10 @@ depth_to_layer <- function(poly_depth, nominal_dz) {
   # Apply layer assignment to each polygon/layer-depth combination!
   pd$layer <- purrr::pmap_int(list(pd$polygon, pd$min_depth, pd$max_depth), assign_layer, nominal_dz = nominal_dz)
 
+  # cleanup
+  pd$max_depth <- NULL
+  pd$min_depth <- NULL
+
   return(pd)
 }
 
