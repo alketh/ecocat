@@ -14,8 +14,6 @@
 #' df <- dplyr::select(df, depth, polygon)
 #' df <- unique(df)
 #' poly_depth <- df
-#' polygon <- df$polygon
-#' mean_depth <- df$depth
 #' nominal_dz <- ecocat::nominal_dz_df
 
 depth_to_layer <- function(poly_depth, nominal_dz) {
@@ -34,21 +32,35 @@ depth_to_layer <- function(poly_depth, nominal_dz) {
 
   pd <- dplyr::left_join(poly_depth, tibble::tibble(depth = depths, max_depth = depths_max, min_depth = depths_min), by = "depth")
 
-  poly <- pd$polygon[1]
-  mind <- pd$min_depth[1]
-  maxd <- pd$max_depth[1]
-  poly <- pd$polygon[1]
-  mind <- 35
-  maxd <- 70
+  # poly <- pd$polygon[5]
+  # mind <- pd$min_depth[5]
+  # maxd <- pd$max_depth[5]
+  # assign layer with the best overlap ratio to a single row in pd!
   assign_layer <- function(poly, mind, maxd, nominal_dz) {
-    mndz <- nominal_dz$max_nominal_dz[nominal_dz$polygon == poly]
-    ol <- maxd - c(0, mndz[-length(mndz)])
+    # extract layer margins in specific polygon.
+    select_ndz <- nominal_dz[nominal_dz$polygon == poly, ]
+    maxndz <- select_ndz$max_nominal_dz
+    minndz <- c(0, maxndz[-length(maxndz)])
+    ndz <- purrr::map2(minndz, maxndz, c)
+    # apply calc_overlap function to each layer combination.
+    # thus the single layer from pd matched with all layers in the polygon.
+    layer_ol <- purrr::map_dbl(ndz, calc_overlap, ld = c(mind, maxd))
+    # select the layer with the best overlap.
+    layer_id <- which(abs(layer_ol - 1) == min(abs(layer_ol - 1)))
+    layer <- as.integer(select_ndz$layer[layer_id])
+
+    return(layer)
   }
+
+  # Apply layer assignment to each polygon/layer-depth combination!
+  pd$layer <- purrr::pmap_int(list(pd$polygon, pd$min_depth, pd$max_depth), assign_layer, nominal_dz = nominal_dz)
+
+  return(pd)
 }
 
 # Calculate overlap between vertical layers.
 # This could be improved. Nonetheless, the code is super easy to debug!
-set_overlap <- function(lo, ld) {
+calc_overlap <- function(lo, ld) {
   if (any(c(length(ld), length(lo)) != 2)) stop("Length of lo and ld has to be 2.")
   # Theretically there are 9 potential combinations (3^2).
   # See "test-depth-to-layer.R" for further details.
