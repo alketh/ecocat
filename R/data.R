@@ -43,18 +43,13 @@
 #'
 #' Volume in m^3 for each ECOHAM grid and depth layer.
 #'
-#' @format A data frame with 17638 rows and 6 variables:
+#' @format A data frame with 8819 rows and 3 variables:
 #' \describe{
-#'   \item{\code{longitude}}{double. longitude:units = "degrees_east".}
-#'   \item{\code{latitude}}{double. latitude:units = "degrees_north".}
 #'   \item{\code{depth}}{double. depth:units = "meters".}
-#'   \item{\code{time}}{double. time:units = "days since 2000-1-1 00:00:00".}
-#'   \item{\code{vol}}{double. vol:units = "m3".}
+#'   \item{\code{ecoham_out}}{double. vol:units = "m3".}
 #'   \item{\code{ecoham_id}}{integer. grid cell.}
 #' }
 "ref_vol"
-
-
 
 #' Cumulative sum of nominal_dz from GNS-Atlantis model.
 #'

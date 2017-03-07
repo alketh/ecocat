@@ -58,7 +58,10 @@ ggplot(ecoham_layout, aes(x = longitude, y = latitude, col = area)) +
   geom_point()
 
 # Convert Volume for each ecoham Grid and depth layer ---------------------------------------------
-ref_vol <- eco_to_tidy("inst/extdata/volume.nc")
+ref_vol <- eco_to_tidy("inst/extdata/volume.nc") %>%
+  filter(time == 0) %>%
+  select(depth, ecoham_out, ecoham_id) %>%
+  unique()
 
 # Create dataframe of nominal_dz values -----------------------------------------------------------
 nominal_dz_df <- load_init(dir = "z:/Atlantis_models/baserun/", init = "init_NorthSea.nc", vars = "nominal_dz")[[1]] %>%
