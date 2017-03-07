@@ -1,6 +1,6 @@
 # context("test area calculations")
 #
-# atlantis_bgm <- system.file(package = "ecocat", "extdata/NorthSea.bgm")
+# atlantis_bgm <- system.file("extdata/NorthSea.bgm", package = "ecocat")
 # overlap <- intersect_ecocat(atlantis_bgm, ecoham_layout)
 #
 # # Compare area of intersected polygons with ecoham area!

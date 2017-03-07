@@ -1,7 +1,7 @@
 context("test unit extraxction from nc file")
 
-u1 <- extract_unit(system.file(package = "ecocat", "extdata/d1.nc"))
-u2 <- extract_unit(system.file(package = "ecocat", "extdata/volume.nc"))
+u1 <- extract_unit(system.file("extdata/d1.nc", package = "ecocat"))
+u2 <- extract_unit(system.file("extdata/volume.nc", package = "ecocat"))
 
 test_names <- c("longitude", "latitude", "depth", "time")
 test_units <- c("degrees_east", "degrees_north", "meters", "days since 2000-1-1 00:00:00")
