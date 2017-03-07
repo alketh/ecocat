@@ -34,6 +34,9 @@ nicemap_df$poly_code[nicemap_df$id_x == 47 & nicemap_df$id_y == 42] == "J"
 nicemap_df$poly_code[nicemap_df$id_x == 70 & nicemap_df$id_y == 49] == "N"
 is.na(nicemap_df$poly_code[nicemap_df$id_x == 15 & nicemap_df$id_y == 72])
 
+# Remove islands and boundary boxes from nicemap!
+nicemap_df$polygon[nicemap_df$polygon %in% c(0, 16, 17, 23:25)] <- NA
+
 # Extract ecoham box layout from volume.nc --------------------------------------------------------
 # Create dataframe with ECOHAM boxes
 nc_read <- RNetCDF::open.nc(con = system.file(package = "ecocat", "extdata/volume.nc"))
