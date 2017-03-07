@@ -78,8 +78,4 @@ set_overlap <- function(lo, ld) {
   return(result)
 }
 
-set_overlap(c(0, 10), c(8, 12))
-
-
-
 
