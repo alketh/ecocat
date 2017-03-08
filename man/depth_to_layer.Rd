@@ -4,11 +4,13 @@
 \alias{depth_to_layer}
 \title{Convert mean_depth from ECOHAM output to ATLANTIS layer id.}
 \usage{
-depth_to_layer(poly_depth, nominal_dz = ecocat::nominal_dz_df)
+depth_to_layer(poly_depth = ecocat::poly_depth_df,
+  nominal_dz = ecocat::nominal_dz_df)
 }
 \arguments{
 \item{poly_depth}{dataframe Unique combinations between ATLANTIS polygons and ECOHAM mean depths.
-Layer assignment does not work in case the true mininum mean depth is not present here.}
+Layer assignment does not work in case the true mininum mean depth is not present here.
+See \code{\link{poly_depth_df}} for further details.}
 
 \item{nominal_dz}{dataframe Tidy dataframe with columns polygon, layer, max_nominal_dz.
 See \code{\link{nominal_dz_df}} for further details.}
@@ -20,11 +22,8 @@ Dataframe.
 Convert mean_depth from ECOHAM output to ATLANTIS layer id.
 }
 \examples{
-nc <- system.file(package = "ecocat", "extdata/d1.nc")
-df <- ecocat(nc)
-df <- dplyr::select(df, depth, polygon)
-df <- unique(df)
-poly_depth <- df
-nominal_dz <- ecocat::nominal_dz_df
+poly_depth = ecocat::poly_depth_df
+nominal_dz = ecocat::nominal_dz_df
+head(depth_to_layer(poly_depth, nominal_dz))
 }
 
