@@ -69,9 +69,20 @@ nominal_dz_df <- atlantistools::load_init(dir = "z:/Atlantis_models/baserun/", i
   dplyr::select(polygon, layer, max_nominal_dz) %>%
   tibble::as_tibble()
 
-
+# Unique combination of ATLANTIS polygons and ECOHAM mean depths ----------------------------------
+# Add Atlantis polygons based on nicemap and restrict ECOHAM to ATLANTIS area.
+poly_depth_df <- dplyr::left_join(ecoham_vol, nicemap, by = "ecoham_id") %>%
+  dplyr::filter_(~!is.na(polygon)) %>%
+  dplyr::select_(~depth, ~polygon) %>%
+  unique()
 
 # Write files and cleanup -------------------------------------------------------------------------
-devtools::use_data(bgm_df, nicemap_df, ecoham_layout, ecoham_vol, nominal_dz_df, overwrite = TRUE)
+devtools::use_data(bgm_df,
+                   nicemap_df,
+                   ecoham_layout,
+                   ecoham_vol,
+                   nominal_dz_df,
+                   poly_depth_df,
+                   overwrite = TRUE)
 
 rm(list = ls())
