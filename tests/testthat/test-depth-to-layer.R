@@ -12,13 +12,13 @@ context("test depth to layer assignment")
 # 9. lo[1] = ld[1] & lo[2] = ld[2] --> full match.
 
 test_that("test cases", {
-  expect_equal(calc_overlap(c(10, 20), c(5, 15)), 0.5)  # case 1
+  expect_equal(calc_overlap(c(10, 20), c(5,  15)), 0.5) # case 1
   expect_equal(calc_overlap(c(10, 20), c(12, 15)), 1)   # case 2
   expect_equal(calc_overlap(c(10, 20), c(10, 15)), 1)   # case 3
-  expect_equal(calc_overlap(c(10, 20), c(5, 25)), 1)    # case 4
+  expect_equal(calc_overlap(c(10, 20), c(5,  25)), 1)   # case 4
   expect_equal(calc_overlap(c(10, 20), c(15, 25)), 0.5) # case 5
   expect_equal(calc_overlap(c(10, 20), c(10, 25)), 1)   # case 6
-  expect_equal(calc_overlap(c(10, 20), c(5, 20)), 1)    # case 7
+  expect_equal(calc_overlap(c(10, 20), c(5,  20)), 1)   # case 7
   expect_equal(calc_overlap(c(10, 20), c(15, 20)), 1)   # case 8
   expect_equal(calc_overlap(c(10, 20), c(10, 20)), 1)   # case 9
 })
