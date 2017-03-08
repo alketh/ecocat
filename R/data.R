@@ -62,3 +62,15 @@
 #'   \item{\code{max_nominal_dz}}{double. maximum cimulative nominal_dz per polygon and layer.}
 #' }
 "nominal_dz_df"
+
+
+#' Unique combination between ATLANTIS polygons and ECOHAM mean depths.
+#'
+#' Polygons and depths.
+#'
+#' @format A data frame with 40 rows and 2 variables:
+#' \describe{
+#'   \item{\code{depth}}{double. mean depth of ECOHAM grid cells.}
+#'   \item{\code{polygon}}{double. ATLANTIS polygon ids.}
+#' }
+"poly_depth_df"
