@@ -1,7 +1,5 @@
 context("test depth to layer assignment")
 
-library("purrr")
-
 # Theretically there are 9 potential combinations (3^2).
 # 1. lo[1] > ld[1] & lo[2] > ld[2] --> partial match. dest shallower.
 # 2. lo[1] < ld[1] & lo[2] > ld[2] --> full match. dest completly covered by orig.
@@ -26,7 +24,7 @@ test_that("test cases", {
 })
 
 orig <- c(15, 25)
-test <- map_dbl(map(seq(-10, 10), ~orig + .x), calc_overlap, lo = orig)
+test <- purrr::map_dbl(purrr::map(seq(-10, 10), ~orig + .x), calc_overlap, lo = orig)
 
 test_that("move layer through wc", {
   expect_equal(test, c(seq(0, 0.9, by = 0.1), 1, seq(0.9, 0, by = -0.1)))
