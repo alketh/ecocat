@@ -16,7 +16,7 @@
 #' poly_depth <- df
 #' nominal_dz <- ecocat::nominal_dz_df
 
-depth_to_layer <- function(poly_depth, nominal_dz) {
+depth_to_layer <- function(poly_depth, nominal_dz = ecocat::nominal_dz_df) {
   # Add max and min depth! Iteratively calculate max depth per depth layer.
   depths <- sort(unique(poly_depth$depth))
   if (depths[1] != 5) stop("Minimum depth is not equal to 5.")
