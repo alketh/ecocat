@@ -45,13 +45,16 @@ depth_to_layer <- function(poly_depth = ecocat::poly_depth_df, nominal_dz = ecoc
     layer_ol <- purrr::map_dbl(ndz, calc_overlap, ld = c(mind, maxd))
     # select the layer with the best overlap.
     layer_id <- which(abs(layer_ol - 1) == min(abs(layer_ol - 1)))
-    layer <- as.integer(select_ndz$layer[layer_id])
+    res <- c(layer = select_ndz$layer[layer_id], overlap = layer_ol[layer_id])
 
-    return(layer)
+    return(res)
   }
 
   # Apply layer assignment to each polygon/layer-depth combination!
-  pd$layer <- purrr::pmap_int(list(pd$polygon, pd$min_depth, pd$max_depth), assign_layer, nominal_dz = nominal_dz)
+  lol <- purrr::pmap(list(pd$polygon, pd$min_depth, pd$max_depth), assign_layer, nominal_dz = nominal_dz) %>%
+    do.call(args = ., rbind) %>%
+    tibble::as_tibble()
+  pd <- dplyr::bind_cols(pd, lol)
 
   # cleanup
   pd$max_depth <- NULL
