@@ -22,8 +22,8 @@ Dataframe.
 Convert mean_depth from ECOHAM output to ATLANTIS layer id.
 }
 \examples{
-poly_depth = ecocat::poly_depth_df
-nominal_dz = ecocat::nominal_dz_df
+poly_depth <- ecocat::poly_depth_df
+nominal_dz <- ecocat::nominal_dz_df
 head(depth_to_layer(poly_depth, nominal_dz))
 }
 
