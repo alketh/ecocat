@@ -28,11 +28,13 @@ depth_to_layer <- function(poly_depth = ecocat::poly_depth_df, nominal_dz = ecoc
   }
   depths_min <- c(0, depths_max[-length(depths_max)])
 
+  if (any(depths_min >= depths_max)) stop("Pls check mean depth in ecoham grid. Min depth > max depth in some cells.")
+
   pd <- dplyr::left_join(poly_depth, tibble::tibble(depth = depths, max_depth = depths_max, min_depth = depths_min), by = "depth")
 
-  # poly <- pd$polygon[5]
-  # mind <- pd$min_depth[5]
-  # maxd <- pd$max_depth[5]
+  # poly <- pd$polygon[13]
+  # mind <- pd$min_depth[13]
+  # maxd <- pd$max_depth[13]
   # assign layer with the best overlap ratio to a single row in pd!
   assign_layer <- function(poly, mind, maxd, nominal_dz) {
     # extract layer margins in specific polygon.
@@ -43,10 +45,17 @@ depth_to_layer <- function(poly_depth = ecocat::poly_depth_df, nominal_dz = ecoc
     # apply calc_overlap function to each layer combination.
     # thus the single layer from pd matched with all layers in the polygon.
     layer_ol <- purrr::map_dbl(ndz, calc_overlap, ld = c(mind, maxd))
-    # select the layer with the best overlap.
+    # select the layer with the best overlap. In case of equal overlap use layer closer to surface.
     layer_id <- which(abs(layer_ol - 1) == min(abs(layer_ol - 1)))
-    res <- c(layer = select_ndz$layer[layer_id], overlap = layer_ol[layer_id])
+    # Add NA in case of missing overlap.
+    if (all(layer_ol == 0)) {
+      res <- c(NA, 0)
+    } else {
+      if (length(layer_id) == 2) layer_id <- layer_id[1]
+      res <- c(select_ndz$layer[layer_id], layer_ol[layer_id])
+    }
 
+    names(res) <- c("layer", "overlap")
     return(res)
   }
 
