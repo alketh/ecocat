@@ -11,7 +11,7 @@ depth_to_layer(poly_depth, nominal_dz)
 Layer assignment does not work in case the true mininum mean depth is not present here.}
 
 \item{nominal_dz}{dataframe Tidy dataframe with columns polygon, layer, max_nominal_dz.
-See \link{create-example-dfs.R} for further details.}
+See \link{nominal_dz_df} for further details.}
 }
 \value{
 Dataframe.

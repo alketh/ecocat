@@ -3,7 +3,7 @@
 #' @param poly_depth dataframe Unique combinations between ATLANTIS polygons and ECOHAM mean depths.
 #' Layer assignment does not work in case the true mininum mean depth is not present here.
 #' @param nominal_dz dataframe Tidy dataframe with columns polygon, layer, max_nominal_dz.
-#' See \link{create-example-dfs.R} for further details.
+#' See \code{\link{nominal_dz_df}} for further details.
 #'
 #' @return Dataframe.
 #' @export
