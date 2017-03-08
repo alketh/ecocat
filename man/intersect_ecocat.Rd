@@ -18,7 +18,9 @@ Dataframe
 Calculate overlap between ecoham boxes and atlantis polygons.
 }
 \examples{
+\dontrun{
 atlantis_bgm <- system.file(package = "ecocat", "extdata/NorthSea.bgm")
 overlap <- intersect_ecocat(atlantis_bgm, ecoham_layout)
+}
 }
 

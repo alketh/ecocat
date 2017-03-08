@@ -7,8 +7,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' atlantis_bgm <- system.file(package = "ecocat", "extdata/NorthSea.bgm")
 #' overlap <- intersect_ecocat(atlantis_bgm, ecoham_layout)
+#' }
 
 # Please note that the area calculations and flux calculations (exchange.nc) are based on the
 # ECOHAM nicemap. Thus it doesn't make sense to sptially overlap the ATLANTIS Polygons
