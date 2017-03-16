@@ -37,20 +37,20 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
   }
 
   # Add Atlantis polygons based on nicemap and restrict ECOHAM to ATLANTIS area.
-  atlantis_df <- dplyr::left_join(eco_tidy, nicemap, by = "ecoham_id") %>%
+  eco_tidy <- dplyr::left_join(eco_tidy, nicemap, by = "ecoham_id") %>%
     dplyr::filter_(~!is.na(polygon))
 
   # Assign ATLANTIS layers based on ECOHAM grid layer and polygon combination. Create a dataframe
   # with unique polygon grid depth combinations to speed up calculations.
-  poly_depth <- atlantis_df %>%
+  poly_depth <- eco_tidy %>%
     dplyr::select_(~depth, ~polygon) %>%
     unique() %>%
     depth_to_layer(nominal_dz = nominal_dz)
 
   # Add layer information and aggregate data!
-  atlantis_agg <- atlantis_df %>%
+  eco_tidy <- eco_tidy %>%
     dplyr::left_join(poly_depth, by = c("polygon", "depth")) %>%
     atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon", "layer"), out = "ecoham_out", fun = mean)
 
-  return(atlantis_agg)
+  return(eco_tidy)
 }
