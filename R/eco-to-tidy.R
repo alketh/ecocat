@@ -12,6 +12,7 @@
 #' vol <- eco_to_tidy(nc)
 
 # nc <- "z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc"
+# nc <- "z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.z2n.nc"
 # volume <- eco_to_tidy("z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc")
 
 eco_to_tidy <- function(nc) {
@@ -42,9 +43,9 @@ eco_to_tidy <- function(nc) {
   c6 <- rep(1:(d[1] * d[2]), times = d[3] * d[4])
 
   # Combine to tibble and remove missing values.
-  ecodf <- tibble::tibble(c1, c2, c3, c4, c5 = as.vector(ar), c6) %>%
-    purrr::set_names(c(variables[-length(variables)], "ecoham_out", "ecoham_id")) %>%
-    dplyr::filter_(~!is.na(ecoham_out))
+  ecodf <- tibble::tibble(c1, c2, c3, c4, c5 = as.vector(ar), c6)
+  ecodf <- purrr::set_names(ecodf, c(variables[-length(variables)], "ecoham_out", "ecoham_id"))
+  ecodf <- dplyr::filter_(ecodf, ~!is.na(ecoham_out))
   ecodf$longitude <- NULL
   ecodf$latitude <- NULL
 
