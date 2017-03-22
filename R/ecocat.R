@@ -42,10 +42,10 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
 
   # Assign ATLANTIS layers based on ECOHAM grid layer and polygon combination. Create a dataframe
   # with unique polygon grid depth combinations to speed up calculations.
-  poly_depth <- eco_tidy %>%
-    dplyr::select_(~depth, ~polygon) %>%
-    unique() %>%
-    depth_to_layer(nominal_dz = nominal_dz)
+  poly_depth <- eco_tidy
+  poly_depth <- dplyr::select_(poly_depth, ~depth, ~polygon)
+  poly_depth <- unique(poly_depth)
+  poly_depth <- depth_to_layer(poly_depth, nominal_dz = nominal_dz)
 
   # Add layer information and aggregate data!
   eco_tidy <- eco_tidy %>%
