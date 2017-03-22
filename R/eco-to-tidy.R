@@ -39,26 +39,26 @@ eco_to_tidy <- function(nc) {
   c5 <- as.vector(ar)
   remove_nas <- !is.na(c5)
 
-  c1 <- rep(rep(rep(vars_new[[1]], times = d[2]), times = d[3]), times = d[4])
-  c2 <- rep(rep(rep(vars_new[[2]], each = d[1]), times = d[3]), times = d[4])
+  # c1 <- rep(rep(rep(vars_new[[1]], times = d[2]), times = d[3]), times = d[4])
+  # c2 <- rep(rep(rep(vars_new[[2]], each = d[1]), times = d[3]), times = d[4])
   c3 <- rep(rep(vars_new[[3]], each = d[1] * d[2]), times = d[4])
   c4 <- rep(vars_new[[4]], each = d[1] * d[2] * d[3])
   c6 <- rep(1:(d[1] * d[2]), times = d[3] * d[4])
 
   # Filter vectors
-  c1 <- c1[remove_nas]
-  c2 <- c2[remove_nas]
+  # c1 <- c1[remove_nas]
+  # c2 <- c2[remove_nas]
   c3 <- c3[remove_nas]
   c4 <- c4[remove_nas]
   c5 <- c5[remove_nas]
   c6 <- c6[remove_nas]
 
   # Combine to tibble and remove missing values.
-  ecodf <- tibble::tibble(c1, c2, c3, c4, c5, c6)
-  ecodf <- purrr::set_names(ecodf, c(variables[-length(variables)], "ecoham_out", "ecoham_id"))
+  ecodf <- tibble::tibble(c3, c4, c5, c6)
+  ecodf <- purrr::set_names(ecodf, c(variables[c(-1, -2, -length(variables))], "ecoham_out", "ecoham_id"))
   # ecodf <- dplyr::filter_(ecodf, ~!is.na(ecoham_out))
-  ecodf$longitude <- NULL
-  ecodf$latitude <- NULL
+  # ecodf$longitude <- NULL
+  # ecodf$latitude <- NULL
 
   return(ecodf)
 }
