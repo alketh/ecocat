@@ -46,8 +46,6 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
   poly_depth <- eco_tidy
   poly_depth <- dplyr::select_(poly_depth, ~depth, ~polygon)
   poly_depth <- unique(poly_depth)
-
-  poly_depth <-
   poly_depth <- depth_to_layer(poly_depth, nominal_dz = nominal_dz)
 
   # Add layer information and aggregate data!
