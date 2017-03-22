@@ -37,7 +37,7 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
 
   # Check if time is given in days and convert to years!
   if (stringr::str_detect(unit["time"], pattern = "days")) {
-    eco_tidy <- dplyr::mutate(eco_tidy, time = (time + 1) / 365)
+    eco_tidy <- dplyr::mutate(eco_tidy, time = time  / 365)
     # eco_tidy$time <- (eco_tidy$time + 1) / 365
   }
 
