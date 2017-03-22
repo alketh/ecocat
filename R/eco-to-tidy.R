@@ -48,15 +48,15 @@ eco_to_tidy <- function(nc) {
   # Filter vectors
   # c1 <- c1[remove_nas]
   # c2 <- c2[remove_nas]
-  c3 <- c3[remove_nas]
-  c4 <- c4[remove_nas]
-  c5 <- c5[remove_nas]
-  c6 <- c6[remove_nas]
+  # c3 <- c3[remove_nas]
+  # c4 <- c4[remove_nas]
+  # c5 <- c5[remove_nas]
+  # c6 <- c6[remove_nas]
 
   # Combine to tibble and remove missing values.
   ecodf <- tibble::tibble(c3, c4, c5, c6)
   ecodf <- purrr::set_names(ecodf, c(variables[c(-1, -2, -length(variables))], "ecoham_out", "ecoham_id"))
-  # ecodf <- dplyr::filter_(ecodf, ~!is.na(ecoham_out))
+  ecodf <- dplyr::filter_(ecodf, ~!is.na(ecoham_out))
   # ecodf$longitude <- NULL
   # ecodf$latitude <- NULL
 
