@@ -37,7 +37,7 @@ eco_to_tidy <- function(nc) {
   # create columns (vectorised) with netcdf variable values.
   vars_new <- purrr::map(variables[-length(variables)], RNetCDF::var.get.nc, ncfile = nc_read)
   c5 <- as.vector(ar)
-  remove_nas <- !is.na(ar)
+  remove_nas <- !is.na(c5)
 
   c1 <- rep(rep(rep(vars_new[[1]], times = d[2]), times = d[3]), times = d[4])
   c2 <- rep(rep(rep(vars_new[[2]], each = d[1]), times = d[3]), times = d[4])
@@ -56,7 +56,7 @@ eco_to_tidy <- function(nc) {
   # Combine to tibble and remove missing values.
   ecodf <- tibble::tibble(c1, c2, c3, c4, c5, c6)
   ecodf <- purrr::set_names(ecodf, c(variables[-length(variables)], "ecoham_out", "ecoham_id"))
-  ecodf <- dplyr::filter_(ecodf, ~!is.na(ecoham_out))
+  # ecodf <- dplyr::filter_(ecodf, ~!is.na(ecoham_out))
   ecodf$longitude <- NULL
   ecodf$latitude <- NULL
 
