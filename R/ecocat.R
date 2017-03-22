@@ -22,6 +22,10 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
   # extract variable name and units
   unit <- extract_unit(nc = nc)
 
+  # Add Atlantis polygons based on nicemap and restrict ECOHAM to ATLANTIS area.
+  eco_tidy <- dplyr::left_join(eco_tidy, nicemap, by = "ecoham_id") %>%
+    dplyr::filter_(~!is.na(polygon))
+
   # Convert from mmol to mg! By default variable is listed at the end.
   # Atomar mass of nitrogen = 14.0067 g/mol
   # from mmol to mol --> divide by 1000
@@ -33,18 +37,17 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
 
   # Check if time is given in days and convert to years!
   if (stringr::str_detect(unit["time"], pattern = "days")) {
-    eco_tidy$time <- (eco_tidy$time + 1) / 365
+    eco_tidy <- dplyr::mutate(eco_tidy, time = (time + 1) / 365)
+    # eco_tidy$time <- (eco_tidy$time + 1) / 365
   }
-
-  # Add Atlantis polygons based on nicemap and restrict ECOHAM to ATLANTIS area.
-  eco_tidy <- dplyr::left_join(eco_tidy, nicemap, by = "ecoham_id") %>%
-    dplyr::filter_(~!is.na(polygon))
 
   # Assign ATLANTIS layers based on ECOHAM grid layer and polygon combination. Create a dataframe
   # with unique polygon grid depth combinations to speed up calculations.
   poly_depth <- eco_tidy
   poly_depth <- dplyr::select_(poly_depth, ~depth, ~polygon)
   poly_depth <- unique(poly_depth)
+
+  poly_depth <-
   poly_depth <- depth_to_layer(poly_depth, nominal_dz = nominal_dz)
 
   # Add layer information and aggregate data!
