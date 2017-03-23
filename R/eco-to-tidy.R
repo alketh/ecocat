@@ -37,16 +37,16 @@ eco_to_tidy <- function(nc) {
   # create columns (vectorised) with netcdf variable values.
   vars_new <- purrr::map(variables[-length(variables)], RNetCDF::var.get.nc, ncfile = nc_read)
 
-  c1 <- rep(rep(rep(vars_new[[1]], times = d[2]), times = d[3]), times = d[4])
-  c2 <- rep(rep(rep(vars_new[[2]], each = d[1]), times = d[3]), times = d[4])
+  # c1 <- rep(rep(rep(vars_new[[1]], times = d[2]), times = d[3]), times = d[4])
+  # c2 <- rep(rep(rep(vars_new[[2]], each = d[1]), times = d[3]), times = d[4])
   c3 <- rep(rep(vars_new[[3]], each = d[1] * d[2]), times = d[4])
   c4 <- rep(vars_new[[4]], each = d[1] * d[2] * d[3])
   c6 <- rep(1:(d[1] * d[2]), times = d[3] * d[4])
 
 
   # Combine to tibble and remove missing values.
-  ecodf <- tibble::tibble(c1, c2, c3, c4, as.vector(ar), c6)
-  ecodf <- purrr::set_names(ecodf, c(variables[c(-length(variables))], "ecoham_out", "ecoham_id"))
+  ecodf <- tibble::tibble(c3, c4, as.vector(ar), c6)
+  ecodf <- purrr::set_names(ecodf, c(variables[c(-1, -2, -length(variables))], "ecoham_out", "ecoham_id"))
   ecodf <- dplyr::filter_(ecodf, ~!is.na(ecoham_out))
 
   return(ecodf)
