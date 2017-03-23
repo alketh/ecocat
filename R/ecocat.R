@@ -23,8 +23,8 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
   unit <- extract_unit(nc = nc)
 
   # Add Atlantis polygons based on nicemap and restrict ECOHAM to ATLANTIS area.
-  eco_tidy <- dplyr::left_join(eco_tidy, nicemap, by = "ecoham_id") %>%
-    dplyr::filter_(~!is.na(polygon))
+  nice <- dplyr::filter(nicemap, !is.na(polygon))
+  eco_tidy <- dplyr::inner_join(eco_tidy, nice, by = "ecoham_id")
 
   # Convert from mmol to mg! By default variable is listed at the end.
   # Atomar mass of nitrogen = 14.0067 g/mol
