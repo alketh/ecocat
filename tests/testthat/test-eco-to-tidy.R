@@ -26,36 +26,47 @@ test_that("test this", {
 #
 # data(world2HiresMapEnv)
 
-# # Visually inspect ECOHAM output
-# nc <- "z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc"
-#
-# raw <- eco_to_tidy(nc)
-#
-# # select initial time and surface plot ecohamid and compare with layout
-# wuwu <- dplyr::filter(raw, time == 0 & depth == 5)
-#
-# ggplot2::ggplot(wuwu, ggplot2::aes(x = longitude, y = latitude, label = ecoham_id)) +
-#   ggplot2::geom_text(size = 2)
-#
-# ggplot2::ggplot(ecoham_layout, ggplot2::aes(x = longitude, y = latitude, label = ecoham_id)) +
-#   ggplot2::geom_text(size = 2)
-#
-# # select different time steps and plot maximum depth.
-# wuwu <- dplyr::filter(raw, time == 0) %>%
-#   atlantistools::agg_data(col = "depth", groups = c("longitude", "latitude"), data = ., out = "depth", fun = max)
-#
-# ggplot2::ggplot(wuwu, ggplot2::aes(x = longitude, y = latitude, fill = depth)) +
-#   ggplot2::geom_tile()
-#
-# wuwu <- dplyr::filter(raw, time == 21) %>%
-#   atlantistools::agg_data(col = "depth", groups = c("longitude", "latitude"), data = ., out = "depth", fun = max)
-#
-# ggplot2::ggplot(wuwu, ggplot2::aes(x = longitude, y = latitude, fill = depth)) +
-#   ggplot2::geom_tile()
-#
-# # Plot Surface volume at time 50.
-# wuwu <- dplyr::filter(raw, time == 52 & depth == 17.5)
-#
-# ggplot2::ggplot(wuwu, ggplot2::aes(x = longitude, y = latitude, fill = ecoham_out)) +
-#   ggplot2::geom_tile()
+# Visually inspect ECOHAM output
+nc <- "z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.vol.nc"
+nc <- "z:/my_data_alex/Markus/ECOHAM_B057/B057-D4_3D.2000.z1n.nc"
+
+raw <- eco_to_tidy(nc)
+
+# select initial time and surface plot ecohamid and compare with layout
+wuwu <- dplyr::filter(raw, time == 0 & depth == 5)
+
+ggplot2::ggplot(wuwu, ggplot2::aes(x = longitude, y = latitude, label = ecoham_id)) +
+  ggplot2::geom_text(size = 2)
+
+ggplot2::ggplot(ecoham_layout, ggplot2::aes(x = longitude, y = latitude, label = ecoham_id)) +
+  ggplot2::geom_text(size = 2)
+
+# select different time steps and plot maximum depth.
+wuwu <- dplyr::filter(raw, time == 0) %>%
+  atlantistools::agg_data(col = "depth", groups = c("longitude", "latitude"), data = ., out = "depth", fun = max)
+
+ggplot2::ggplot(wuwu, ggplot2::aes(x = longitude, y = latitude, fill = depth)) +
+  ggplot2::geom_tile()
+
+wuwu <- dplyr::filter(raw, time == 21) %>%
+  atlantistools::agg_data(col = "depth", groups = c("longitude", "latitude"), data = ., out = "depth", fun = max)
+
+ggplot2::ggplot(wuwu, ggplot2::aes(x = longitude, y = latitude, fill = depth)) +
+  ggplot2::geom_tile()
+
+# Plot Surface volume at time 50.
+wuwu <- dplyr::filter(raw, time == 52)
+
+ggplot2::ggplot(wuwu, ggplot2::aes(x = longitude, y = latitude, fill = ecoham_out)) +
+  ggplot2::geom_tile() +
+  ggplot2::facet_wrap(~depth)
+
+wuwu <- dplyr::left_join(raw, ecocat::nicemap_df, by = "ecoham_id") %>%
+  dplyr::filter_(~!is.na(polygon)) %>%
+  dplyr::filter(time == 1)
+
+# select raw data from all Polygon 21 grid cells.
+poly21 <- ecocat::nicemap_df$ecoham_id[ecocat::nicemap_df$polygon == 21 & !is.na(ecocat::nicemap_df$polygon)]
+wuwu <- dplyr::filter(raw, ecoham_id %in% poly21)
+
 
