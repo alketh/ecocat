@@ -5,14 +5,15 @@ bgm_df <- atlantistools::convert_bgm(bgm = "inst/extdata/NorthSea.bgm") %>%
 # Convert nicemap to tidy dataframe ---------------------------------------------------------------
 nicemap <- readLines("inst/extdata/polygon-mask_ECOHAM.dat") %>%
   purrr::map(strsplit, split = "") %>%
-  purrr::flatten()  # strsplit creates a list within a list...
+  purrr::flatten(.)  # strsplit creates a list within a list...
 
 d1 <- unique(purrr::map_dbl(nicemap, length))
 d2 <- length(nicemap)
 
 nicemap_df <- tibble::tibble(id_x = rep(1:d1, times = d2),
-                     id_y = rep(1:d2, each = d1),
-                     poly_code = unlist(nicemap))
+                     id_y = rep(d2:1, each = d1),
+                     poly_code = unlist(nicemap)) %>%
+  dplyr::arrange(id_y, id_x)
 
 nicemap_df$ecoham_id <- 1:nrow(nicemap_df)
 
@@ -86,3 +87,12 @@ devtools::use_data(bgm_df,
                    overwrite = TRUE)
 
 rm(list = ls())
+
+
+# wuwu <- dplyr::left_join(nicemap_df, ecoham_layout)
+#
+# ggplot2::ggplot(wuwu, ggplot2::aes(x = longitude, y = latitude, label = polygon)) +
+#   ggplot2::geom_text(size = 2)
+
+
+
