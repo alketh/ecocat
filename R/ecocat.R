@@ -46,10 +46,11 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
   poly_depth <- dplyr::select_(eco_tidy, ~depth, ~polygon)
   poly_depth <- unique(poly_depth)
   poly_depth <- depth_to_layer(poly_depth, nominal_dz = nominal_dz)
+  poly_depth <- dplyr::filter_(poly_depth, ~!is.na(layer))
 
   # Add layer information and aggregate data!
   eco_tidy <- eco_tidy %>%
-    dplyr::left_join(poly_depth, by = c("polygon", "depth")) %>%
+    dplyr::inner_join(poly_depth, by = c("polygon", "depth")) %>%
     atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon", "layer"), out = "ecoham_out", fun = mean)
 
   return(eco_tidy)
