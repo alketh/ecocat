@@ -62,7 +62,7 @@ ecoham_vol <- eco_to_tidy("inst/extdata/volume.nc") %>%
   unique()
 
 # Create dataframe of nominal_dz values -----------------------------------------------------------
-nominal_dz_df <- atlantistools::load_init(dir = "z:/Atlantis_models/baserun/", init = "init_NorthSea.nc", vars = "nominal_dz")[[1]] %>%
+nominal_dz_df <- atlantistools::load_init(init = "z:/Atlantis_models/baserun/init_NorthSea.nc", vars = "nominal_dz")[[1]] %>%
   dplyr::filter(!(is.na(layer) | layer == 7)) %>%
   split(., .$polygon) %>%
   purrr::map(., ~dplyr::arrange(., desc(layer))) %>%
