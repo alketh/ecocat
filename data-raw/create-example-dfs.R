@@ -52,8 +52,8 @@ area <- RNetCDF::open.nc(con = system.file(package = "ecocat", "extdata/area.nc"
 
 ecoham_layout <- tibble::add_column(ecoham_layout, area = area)
 
-ggplot(ecoham_layout, aes(x = longitude, y = latitude, col = area)) +
-  geom_point()
+# ggplot(ecoham_layout, aes(x = longitude, y = latitude, col = area)) +
+#   geom_point()
 
 # Convert Volume for each ecoham Grid and depth layer ---------------------------------------------
 ecoham_vol <- eco_to_tidy("inst/extdata/volume.nc") %>%
