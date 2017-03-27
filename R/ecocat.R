@@ -55,3 +55,4 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
 
   return(eco_tidy)
 }
+
