@@ -51,7 +51,7 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
   # Add layer information and aggregate data!
   eco_tidy <- eco_tidy %>%
     dplyr::inner_join(poly_depth, by = c("polygon", "depth")) %>%
-    atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon", "layer"), out = "ecoham_out", fun = mean)
+    atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon", "layer", "overlap"), out = "ecoham_out", fun = mean)
 
   return(eco_tidy)
 }
