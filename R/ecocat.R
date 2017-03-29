@@ -24,7 +24,7 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
   unit <- extract_unit(nc = nc)
 
   # Add Atlantis polygons based on nicemap and restrict ECOHAM to ATLANTIS area.
-  nice <- dplyr::filter(nicemap, !is.na(polygon))
+  nice <- dplyr::filter_(nicemap, ~!is.na(polygon))
   eco_tidy <- dplyr::inner_join(eco_tidy, nice, by = "ecoham_id")
 
   # Convert from mmol to mg! By default variable is listed at the end.
