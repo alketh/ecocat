@@ -1,7 +1,7 @@
 #' Convert netcdf output from ECOHAM simulation to tidy dataframe.
 #'
 #' Read in netcdf output array from ECOHAM simulation and convert it to a tidy dataframe to allow
-#' coupling with atlantistools.
+#' coupling with atlantistools output.
 #'
 #' @param nc connection to the netcdf file to read in.
 #' @return tidy dataframe with columns longitude, latitude, depth, time, variable-name, ecohambox-id.

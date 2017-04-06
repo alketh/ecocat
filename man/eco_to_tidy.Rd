@@ -14,10 +14,9 @@ tidy dataframe with columns longitude, latitude, depth, time, variable-name, eco
 }
 \description{
 Read in netcdf output array from ECOHAM simulation and convert it to a tidy dataframe to allow
-coupling with atlantistools.
+coupling with atlantistools output.
 }
 \examples{
 nc <- system.file(package = "ecocat", "extdata/volume.nc")
 vol <- eco_to_tidy(nc)
 }
-

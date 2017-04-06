@@ -3,8 +3,8 @@
 #' Assign spatial output from ECOHAM simulation to ATLANTIS polygons.
 #'
 #' @inheritParams eco_to_tidy
-#' @param nicemap dataframe of the nicemap.
-#' @param nominal_dz dataframe cumulative water column thickness per ATLANTIS polygon and layer.
+#' @param nicemap dataframe ECOHAM grid cells with corresponding ATLANTIS polygons.
+#' @param nominal_dz dataframe Cumulative water column thickness per ATLANTIS polygon and layer.
 #' @return Dataframe.
 #' @export
 #'

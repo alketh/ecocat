@@ -9,9 +9,9 @@ ecocat(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nominal_dz_df)
 \arguments{
 \item{nc}{connection to the netcdf file to read in.}
 
-\item{nicemap}{dataframe of the nicemap.}
+\item{nicemap}{dataframe ECOHAM grid cells with corresponding ATLANTIS polygons.}
 
-\item{nominal_dz}{dataframe cumulative water column thickness per ATLANTIS polygon and layer.}
+\item{nominal_dz}{dataframe Cumulative water column thickness per ATLANTIS polygon and layer.}
 }
 \value{
 Dataframe.
@@ -26,4 +26,3 @@ df <- ecocat(nc)
 nc <- system.file(package = "ecocat", "extdata/d1.nc")
 df <- ecocat(nc)
 }
-

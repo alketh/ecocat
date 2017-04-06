@@ -4,7 +4,7 @@
 #'
 #' @inheritParams eco_to_tidy
 #' @param attribute either a character string of the name of the attribute (deault = "units") or the
-#' attribute id (starting at 0).
+#' attribute id (starting with 0).
 #' @export
 
 #' @examples

@@ -1,7 +1,7 @@
 #' Convert mean_depth from ECOHAM output to ATLANTIS layer id.
 #'
-#' @param poly_depth dataframe Unique combinations between ATLANTIS polygons and ECOHAM mean depths.
-#' Layer assignment does not work in case the true mininum mean depth is not present here.
+#' @param poly_depth dataframe Unique combinations of ATLANTIS polygons and ECOHAM depth layers.
+#' Layer assignment does not work in case the true mininum depth is not present.
 #' See \code{\link{poly_depth_df}} for further details.
 #' @param nominal_dz dataframe Tidy dataframe with columns polygon, layer, max_nominal_dz.
 #' See \code{\link{nominal_dz_df}} for further details.

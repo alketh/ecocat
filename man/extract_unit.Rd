@@ -10,7 +10,7 @@ extract_unit(nc, attribute = "units")
 \item{nc}{connection to the netcdf file to read in.}
 
 \item{attribute}{either a character string of the name of the attribute (deault = "units") or the
-attribute id (starting at 0).}
+attribute id (starting with 0).}
 }
 \description{
 Extract units for each variable in a netcdf file
@@ -19,4 +19,3 @@ Extract units for each variable in a netcdf file
 nc <- system.file(package = "ecocat", "extdata/volume.nc")
 extract_unit(nc)
 }
-

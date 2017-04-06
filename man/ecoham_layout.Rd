@@ -18,4 +18,3 @@ ecoham_layout
 mid points in latitude and longitude for each ecoham box.
 }
 \keyword{datasets}
-
