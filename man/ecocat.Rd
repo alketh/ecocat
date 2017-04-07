@@ -4,7 +4,8 @@
 \alias{ecocat}
 \title{Convert ECOHAM output to ATLANTIS output.}
 \usage{
-ecocat(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nominal_dz_df)
+ecocat(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nominal_dz_df,
+  fun = mean)
 }
 \arguments{
 \item{nc}{connection to the netcdf file to read in.}
@@ -12,6 +13,8 @@ ecocat(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nominal_dz_df)
 \item{nicemap}{dataframe ECOHAM grid cells with corresponding ATLANTIS polygons.}
 
 \item{nominal_dz}{dataframe Cumulative water column thickness per ATLANTIS polygon and layer.}
+
+\item{fun}{function used to aggrgegate the data. Defaults to \code{mean}.}
 }
 \value{
 Dataframe.

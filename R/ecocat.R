@@ -5,6 +5,7 @@
 #' @inheritParams eco_to_tidy
 #' @param nicemap dataframe ECOHAM grid cells with corresponding ATLANTIS polygons.
 #' @param nominal_dz dataframe Cumulative water column thickness per ATLANTIS polygon and layer.
+#' @param fun function used to aggrgegate the data. Defaults to \code{mean}.
 #' @return Dataframe.
 #' @export
 #'
@@ -15,7 +16,7 @@
 #' nc <- system.file(package = "ecocat", "extdata/d1.nc")
 #' df <- ecocat(nc)
 
-ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nominal_dz_df) {
+ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nominal_dz_df, fun = mean) {
   # read in data and convert to tidy dataframe
   eco_tidy <- eco_to_tidy(nc = nc)
 
@@ -23,7 +24,7 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
   unit <- extract_unit(nc = nc)
 
   # Add Atlantis polygons based on nicemap and restrict ECOHAM to ATLANTIS area.
-  nice <- dplyr::filter(nicemap, !is.na(polygon))
+  nice <- dplyr::filter_(nicemap, ~!is.na(polygon))
   eco_tidy <- dplyr::inner_join(eco_tidy, nice, by = "ecoham_id")
 
   # Convert from mmol to mg! By default variable is listed at the end.
@@ -51,7 +52,8 @@ ecocat <- function(nc, nicemap = ecocat::nicemap_df, nominal_dz = ecocat::nomina
   # Add layer information and aggregate data!
   eco_tidy <- eco_tidy %>%
     dplyr::inner_join(poly_depth, by = c("polygon", "depth")) %>%
-    atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon", "layer"), out = "ecoham_out", fun = mean)
+    atlantistools::agg_data(data = ., col = "ecoham_out", groups = c("time", "polygon", "layer", "overlap"), out = "ecoham_out", fun = fun)
 
   return(eco_tidy)
 }
+
