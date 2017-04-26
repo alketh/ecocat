@@ -19,4 +19,3 @@ nicemap_df
 nicemap converted to tidy dataframe.
 }
 \keyword{datasets}
-

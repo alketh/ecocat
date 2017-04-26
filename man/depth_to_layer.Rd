@@ -8,8 +8,8 @@ depth_to_layer(poly_depth = ecocat::poly_depth_df,
   nominal_dz = ecocat::nominal_dz_df)
 }
 \arguments{
-\item{poly_depth}{dataframe Unique combinations between ATLANTIS polygons and ECOHAM mean depths.
-Layer assignment does not work in case the true mininum mean depth is not present here.
+\item{poly_depth}{dataframe Unique combinations of ATLANTIS polygons and ECOHAM depth layers.
+Layer assignment does not work in case the true mininum depth is not present.
 See \code{\link{poly_depth_df}} for further details.}
 
 \item{nominal_dz}{dataframe Tidy dataframe with columns polygon, layer, max_nominal_dz.
@@ -26,4 +26,3 @@ poly_depth <- ecocat::poly_depth_df
 nominal_dz <- ecocat::nominal_dz_df
 head(depth_to_layer(poly_depth, nominal_dz))
 }
-

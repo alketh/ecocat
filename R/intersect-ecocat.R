@@ -1,9 +1,10 @@
 #' Calculate overlap between ecoham boxes and atlantis polygons.
 #'
-#' @param atlantis_bgm bgm file of the ATLANTIS model.
-#' @param eco_layout dataframe of the ECOHAM layout.
+#' @param atlantis_bgm bgm Geometry file of the ATLANTIS model.
+#' @param eco_layout dataframe ECOHAM grid layout. See  \code{\link{ecoham_layout}} for further details.
 #'
-#' @return Dataframe
+#' @return Dataframe with columns "id", "ecoham_id", "polygon", "area.x", "longitude", "latitude",
+#' "area.y" and "wf_area".
 #' @export
 #'
 #' @examples

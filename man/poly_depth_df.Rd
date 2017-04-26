@@ -16,4 +16,3 @@ poly_depth_df
 Polygons and depths.
 }
 \keyword{datasets}
-

@@ -7,12 +7,13 @@
 intersect_ecocat(atlantis_bgm, eco_layout = ecocat::ecoham_layout)
 }
 \arguments{
-\item{atlantis_bgm}{bgm file of the ATLANTIS model.}
+\item{atlantis_bgm}{bgm Geometry file of the ATLANTIS model.}
 
-\item{eco_layout}{dataframe of the ECOHAM layout.}
+\item{eco_layout}{dataframe ECOHAM grid layout. See  \code{\link{ecoham_layout}} for further details.}
 }
 \value{
-Dataframe
+Dataframe with columns "id", "ecoham_id", "polygon", "area.x", "longitude", "latitude",
+"area.y" and "wf_area".
 }
 \description{
 Calculate overlap between ecoham boxes and atlantis polygons.
@@ -23,4 +24,3 @@ atlantis_bgm <- system.file(package = "ecocat", "extdata/NorthSea.bgm")
 overlap <- intersect_ecocat(atlantis_bgm, ecoham_layout)
 }
 }
-
